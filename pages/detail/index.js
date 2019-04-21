@@ -33,7 +33,7 @@ Page({
           video: res.data,
           videoPath: app.globalData.videoPath + res.data.videoRealName,
           descriptionPath: app.globalData.imagePath + res.data.descriptionRealName
-        });
+        }); 
       }
     });
   },
