@@ -28,6 +28,7 @@ Page({
             },
             success: function (res) {
               if (res.data != null) {
+                console.log("register success..");
                 wx.setStorageSync("skey", res.data);
               } else {
                 Toast.fail('授权失败');
@@ -50,14 +51,12 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    app.globalData.checkUserStatus = true;
-    let result = app.checkLoginStatus(function () {
-      
-    }, function () {
+    let skey = wx.getStorageSync("skey");
+    if (!skey) {
       that.setData({
         show: true
       });
-    });
+    }
   },
 
   /**

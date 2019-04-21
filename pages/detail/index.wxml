@@ -34,7 +34,7 @@
 
   <van-row custom-class="item-title-row">
     <van-col offset="1" span="6">
-      <text class="item-title">商品介绍</text>
+      <text class="item-title">视频介绍</text>
     </van-col>
   </van-row>
 
