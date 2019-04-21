@@ -72,14 +72,14 @@ page {
 }
 
 .line {
-  margin: 8px auto;
+  margin: 4px auto;
   width: 90%;
   height: 2rpx;
   background-color: whitesmoke
 }
 
 .transparent-line {
-  margin: 8px auto;
+  margin: 4px auto;
   width: 90%;
   height: 2rpx;
   background-color: transparent

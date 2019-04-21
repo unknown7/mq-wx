@@ -14,12 +14,7 @@ Page({
     banners: [],
     swiperCurrent: 0,
     classifications: [],
-    classificationLoadTag: [],
-    videos: [],
-    videosCache: [],
-    videosNew: [],
-    show: false,
-    videoId: null
+    videos: []
   },
   /**
    * 生命周期函数--监听页面加载
@@ -28,7 +23,7 @@ Page({
     var that = this;
     that.getBanners();
     that.getClassifications();
-    that.getVideosNew();
+    that.getVideos();
   },
 
   /**
@@ -87,12 +82,8 @@ Page({
     })
   },
 
-  // 
+  // classification改变事件
   classificationChange: function(e) {
-    // let that = this;
-    // let index = e.detail.index;
-    // let classification = that.data.classifications[index];
-    // that.getVideos(index, classification.id);
   },
 
   /**
@@ -121,7 +112,6 @@ Page({
         that.setData({
           classifications: res.data
         });
-        // that.getVideos(0, res.data[0].id);
       }
     });
   },
@@ -131,46 +121,11 @@ Page({
    */
   getVideos: function(index, id) {
     let that = this; 
-    console.log("index=" + index + ",that.data.classificationLoadTag[" + index + "]=" + that.data.classificationLoadTag[index]);
-    if (!that.data.classificationLoadTag[index]) {
-      console.log("load from server..");
-      wx.request({
-        url: app.globalData.subDomain + 'index/getVideos',
-        data: {
-          "id": id
-        },
-        success: function (res) {
-          that.setData({
-            videos: res.data
-          });
-          that.data.videosCache[index] = res.data;
-          that.data.classificationLoadTag[index] = 1;
-        }
-      });
-    } else {
-      console.log("load from cache..");
-      that.setData({
-        videos: that.data.videosCache[index]
-      });
-    }
-  },
-
-  getVideosNew: function() {
-    let that = this;
     wx.request({
       url: app.globalData.subDomain + 'index/getVideos',
-      data: {
-        "id": 0
-      },
       success: function (res) {
-        let data = res.data;
-        let result = [];
-        for(let i = 0; i < data.length; i++) {
-          let item = data[i];
-          result.push(item);
-        }
         that.setData({
-          videosNew: result
+          videos: res.data
         });
       }
     });
@@ -179,21 +134,6 @@ Page({
   videoClick: function(e) {
     let that = this;
     var videoId = e.currentTarget.dataset.id;
-    that.setData({
-      videoId: videoId
-    });
-    var result = app.checkLoginStatus(function() {
-      that.navigateToVideoDetail(videoId);
-    }, function() {
-      // that.setData({
-      //   show: true
-      // });
-      app.globalData.checkUserStatus = false;
-      that.navigateToVideoDetail(videoId);
-    });
-  },
-
-  navigateToVideoDetail: function(videoId) {
     wx.navigateTo({
       url: '/pages/detail/index?id=' + videoId,
     });

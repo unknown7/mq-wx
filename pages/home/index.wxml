@@ -1,5 +1,5 @@
 <!--pages/wxml/index.wxml-->
-<!-- <button bindtap='clearCache'>clear cache</button> -->
+<button bindtap='clearCache'>clear cache</button>
 <van-notify id="van-notify" />
 <van-toast id="van-toast" />
 
@@ -20,40 +20,38 @@
   </view>
 
   <van-tabs swipeable animated bind:change="classificationChange">
-    <block wx:for="{{classifications}}" wx:key="id">
-    
-      <van-tab title="{{item.vName}}">
+    <block wx:for="{{classifications}}" wx:key="id" wx:for-item="classification">
+      <van-tab title="{{classification.vName}}">
         <view class="transparent-line"></view>
-        <block wx:for="{{videosNew[index]}}" wx:key="id">
-          <van-row bindtap="videoClick" data-id="{{item.id}}" custom-class="row">
+        <block wx:for="{{videos}}" wx:key="id" wx:for-item="video" wx:for-index="index">
+          <van-row wx:if="{{video.classification == classification.id}}" bindtap="videoClick" data-id="{{video.id}}" custom-class="row">
             <van-col offset="2" span="6">
-              <image class="cover" src="{{imagePath + item.coverRealName}}"></image>
+              <image class="cover" src="{{imagePath + video.coverRealName}}"></image>
             </van-col>
             <van-col offset="2" span="12">
               <van-row>
                 <van-col span="24">
-                  <text class="text-title">{{item.title}}</text>
+                  <text class="text-title">{{video.title}}</text>
                 </van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
                   <view class="van-multi-ellipsis--l2">
-                    <text class="text">{{item.subtitle}}</text>
+                    <text class="text">{{video.subtitle}}</text>
                   </view>
                 </van-col>
               </van-row>
               <van-row>
                 <van-col span="18">
-                  <text class="text">已有{{item.watched}}次观看</text>
+                  <text class="text">已有{{video.watched}}次观看</text>
                 </van-col>
                 <van-col span="6">
-                  <text class="text-price">￥{{item.price}}</text>
+                  <text class="text-price">￥{{video.price}}</text>
                 </van-col>
               </van-row>
             </van-col>
           </van-row>
-          <view wx:if="{{index != videos.length - 1}}" class="line"></view>
-          <view wx:else class="transparent-line"></view>
+          <view wx:if="{{video.classification == classification.id}}" class="line"></view>
         </block>
       </van-tab>
     </block>
