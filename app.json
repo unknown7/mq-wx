@@ -1,0 +1,44 @@
+{
+  "pages":[
+    "pages/home/index",
+    "pages/account/index",
+    "pages/detail/index",
+    "pages/authorize/index"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "木荃孕产",
+    "navigationBarTextStyle":"black"
+  },
+  "usingComponents": {
+    "van-button": "dist/button/index",
+    "van-tab": "dist/tab/index",
+    "van-tabs": "dist/tabs/index",
+    "van-row": "dist/row/index",
+    "van-col": "dist/col/index",
+    "van-card": "dist/card/index",
+    "van-popup": "dist/popup/index",
+    "van-dialog": "dist/dialog/index",
+    "van-notify": "dist/notify/index",
+    "van-toast": "dist/toast/index"
+  },
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#1AAD19",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "主页",
+        "iconPath": "images/home_unselected.png",
+        "selectedIconPath": "images/home_selected.png"
+      },
+      {
+        "pagePath": "pages/account/index",
+        "text": "我的",
+        "iconPath": "images/account_unselected.png",
+        "selectedIconPath": "images/account_selected.png"
+      }
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+/* pages/wxml/index.wxss */
+
+page {
+  min-height: 100%;
+  background-color: #fff;
+}
+
+.container {
+  width: 100%;
+  min-height: 100%;
+  background-color: #f4f4f4;
+}
+
+.popup__content {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  background: #fff;
+  text-align: center;
+}
+
+.swiper-container {
+  width: 750rpx;
+  position: relative;
+  background-color: white;
+}
+
+.swiper_box {
+  width: 100%;
+  height: 375rpx; /*562.5rpx;*//**/
+  overflow: visible;
+}
+
+.swiper_item {
+  overflow: visible;
+  border-radius: 50%;
+}
+
+.slide-image {
+  /*swiper-item image */
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  height: 375rpx; /*562.5rpx;*/
+  border-radius: 15rpx;
+  background-color: #fff;
+  box-shadow: 0 10rpx 15rpx rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.swiper-container .dots {
+  position: relative;
+  bottom: 10rpx;
+  margin: 20rpx 30rpx 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.swiper-container .dots .dot {
+  margin: 0 10rpx;
+  width: 15rpx;
+  height: 15rpx;
+  border-radius: 50%;
+  background-color: #999;
+  transition: all 0.6s;
+  opacity: 0.5;
+}
+
+.swiper-container .dots .dot.active {
+  background-color: red;
+  opacity: 1;
+}
+
+.line {
+  margin: 8px auto;
+  width: 90%;
+  height: 2rpx;
+  background-color: whitesmoke
+}
+
+.transparent-line {
+  margin: 8px auto;
+  width: 90%;
+  height: 2rpx;
+  background-color: transparent
+}
+
+.cover {
+  width: 110px;
+  height: 90px;
+  border-radius: 15rpx;
+}
+
+.text-title {
+  font-size: 32rpx;
+}
+
+.text-price {
+  color: forestgreen;
+  font-size: 26rpx;
+}
+
+.text {
+  color: #a9a9a9;
+  font-size: 26rpx;
+}
+
+.row {
+  padding: 6px 0px 0px 0px!important;
+}
+
+.van-multi-ellipsis--l2 {
+  color: #a9a9a9;
+}
+
+
+

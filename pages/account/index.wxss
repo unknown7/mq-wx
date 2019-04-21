@@ -1,0 +1,47 @@
+/* pages/account/index.wxss */
+
+form {
+  width: 750rpx;
+}
+
+.logo {
+  width: 560rpx;
+  height: 80rpx;
+  margin-top: 50rpx;
+  margin-left: 50rpx;
+  margin-right: 150rpx;
+}
+
+.title {
+  text-align: center;
+  margin-top: 70rpx;
+  font-size: 20px;
+}
+
+.profile {
+  text-align: center;
+  margin-top: 30rpx;
+  font-size: 14px;
+  color: #888;
+}
+
+.user-info {
+  width: 100%;
+  height: 200rpx;
+  line-height: 200rpx;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.user-avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  display: block;
+  overflow: hidden;
+}
+
+.user-nick-name {
+  margin-left: 50rpx;
+}

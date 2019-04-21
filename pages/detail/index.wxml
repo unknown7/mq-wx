@@ -1,0 +1,45 @@
+<!--pages/detail/index.wxml-->
+
+<scroll-view scroll-y="true" style="width:100%;min-height:100%;">
+  <view class='item'>
+    <video id='video' style='width: 100%;' src="{{videoPath}}" controls bindtimeupdate="bindtimeupdate" bindfullscreenchange="bindfullscreenchange" bindplay='bindplay'>
+    </video>
+  </view>
+
+  <van-row>
+    <van-col offset="1" span="22">
+      <text style='font-size: 36rpx;'>{{video.title}}</text>
+    </van-col>
+  </van-row>
+
+  <van-row custom-class="row">
+    <van-col offset="1" span="22">
+      <text class="item-detail">{{video.subtitle}}</text>
+    </van-col>
+  </van-row>
+
+  <van-row custom-class="row">
+    <van-col offset="1" span="6">
+      <text class="item-detail">{{video.purchased}}人参与</text>
+    </van-col>
+    <van-col offset="1" span="6">
+      <text class="item-detail">{{video.accessed}}访问量</text>
+    </van-col>
+    <van-col wx:if="{{!video.isPurchased}}" offset="6" span="4">
+      <text class="item-price">￥{{video.price}}</text>
+    </van-col>
+  </van-row>
+
+  <view class="line"></view>
+
+  <van-row custom-class="item-title-row">
+    <van-col offset="1" span="6">
+      <text class="item-title">商品介绍</text>
+    </van-col>
+  </van-row>
+
+  <view class="description-view">
+    <image class="image" src="{{descriptionPath}}" mode="{{widthFix}}"></image>
+  </view>
+</scroll-view>
+
