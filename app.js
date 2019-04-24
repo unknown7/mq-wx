@@ -41,8 +41,8 @@ App({
         }
       });
     } else {
-      that.login(null);
-    }
+      that.login();
+    } 
   },
 
   login: function(skey) {
@@ -50,12 +50,21 @@ App({
     wx.login({
       success: function(loginRes) {
         let code = loginRes.code;
+        let data = {
+          code: code
+        };
+        if (skey) {
+          data.skey = skey;
+        }
         wx.request({
           url: that.globalData.subDomain + "auth",
-          data: {
-            code: code, // 临时登录凭证
-            skey: skey // 用户openid
-          },
+          /**
+           * data {
+           *  code: code // 临时登录凭证
+           *  skey: skey // 用户openid（可能为null）
+           * }
+           */
+          data: data,
           success: function(res) {
             if (res.data.success) {
               console.log("auth success..");
@@ -66,6 +75,7 @@ App({
               console.log("auth fail..");
               wx.removeStorageSync("skey");
               wx.removeStorageSync("userInfo");
+              that.globalData.userInfo = null;
             }
           }
         });
@@ -78,5 +88,8 @@ App({
     subDomain: "http://192.168.1.101:8080/mq/wx/",
     imagePath: "http://192.168.1.101:8080/mq/images/",
     videoPath: "http://192.168.1.101:8080/mq/videos/"
+    // subDomain: "https://www.unknown7.xyz/mq/wx/",
+    // imagePath: "https://www.unknown7.xyz/mq/images/",
+    // videoPath: "https://www.unknown7.xyz/mq/videos/"
   }
 })

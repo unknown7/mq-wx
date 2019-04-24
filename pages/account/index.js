@@ -1,4 +1,6 @@
 // pages/account/index.js
+import Notify from '../../dist/notify/notify';
+import Toast from '../../dist/toast/toast';
 var app = getApp();
 Page({
 

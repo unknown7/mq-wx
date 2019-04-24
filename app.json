@@ -21,7 +21,8 @@
     "van-popup": "dist/popup/index",
     "van-dialog": "dist/dialog/index",
     "van-notify": "dist/notify/index",
-    "van-toast": "dist/toast/index"
+    "van-toast": "dist/toast/index",
+    "painter": "dist/painter/painter"
   },
   "tabBar": {
     "color": "#000",

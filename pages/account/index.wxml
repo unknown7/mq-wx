@@ -1,5 +1,8 @@
 <!--pages/account/index.wxml-->
 
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />
+
  <van-dialog
   use-slot
   async-close

@@ -1,5 +1,5 @@
 <!--pages/wxml/index.wxml-->
-<button bindtap='clearCache'>clear cache</button>
+<!-- <button bindtap='clearCache'>clear cache</button> -->
 <van-notify id="van-notify" />
 <van-toast id="van-toast" />
 
