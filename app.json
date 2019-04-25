@@ -1,9 +1,9 @@
 {
   "pages":[
-    "pages/home/index",
+    "pages/index/index",
     "pages/account/index",
     "pages/detail/index",
-    "pages/authorize/index"
+    "pages/purchase/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -22,6 +22,9 @@
     "van-dialog": "dist/dialog/index",
     "van-notify": "dist/notify/index",
     "van-toast": "dist/toast/index",
+    "van-goods-action": "dist/goods-action/index",
+    "van-goods-action-icon": "dist/goods-action-icon/index",
+    "van-goods-action-button": "dist/goods-action-button/index",
     "painter": "dist/painter/painter"
   },
   "tabBar": {
@@ -29,10 +32,10 @@
     "selectedColor": "#1AAD19",
     "list": [
       {
-        "pagePath": "pages/home/index",
+        "pagePath": "pages/index/index",
         "text": "主页",
-        "iconPath": "images/home_unselected.png",
-        "selectedIconPath": "images/home_selected.png"
+        "iconPath": "images/index_unselected.png",
+        "selectedIconPath": "images/index_selected.png"
       },
       {
         "pagePath": "pages/account/index",

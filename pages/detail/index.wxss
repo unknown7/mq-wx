@@ -51,3 +51,12 @@
 .row {
   padding: 8px 0px 0px 0px !important;
 }
+
+.share-button {
+  border: 0rpx !important;
+}
+
+.purchase-button {
+  background-color: rgba(34, 139, 34, 0.76) !important;
+  border: 0rpx !important;
+}

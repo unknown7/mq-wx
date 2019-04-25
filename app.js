@@ -69,13 +69,14 @@ App({
             if (res.data.success) {
               console.log("auth success..");
               wx.setStorageSync("skey", res.data.skey);
-              wx.setStorageSync("userInfo", res.data.userVo);
-              that.globalData.userInfo = res.data.userInfo;
+              wx.removeStorageSync("userInfo");
+              if (res.data.userVo) {
+                wx.setStorageSync("userInfo", res.data.userVo);
+              }
             } else {
               console.log("auth fail..");
               wx.removeStorageSync("skey");
               wx.removeStorageSync("userInfo");
-              that.globalData.userInfo = null;
             }
           }
         });
@@ -84,10 +85,15 @@ App({
   },
 
   globalData: {
-    userInfo: null,
+    /**
+     * 开发服务器
+     */
     subDomain: "http://192.168.1.101:8080/mq/wx/",
     imagePath: "http://192.168.1.101:8080/mq/images/",
     videoPath: "http://192.168.1.101:8080/mq/videos/"
+    /**
+     * 测试服务器
+     */
     // subDomain: "https://www.unknown7.xyz/mq/wx/",
     // imagePath: "https://www.unknown7.xyz/mq/images/",
     // videoPath: "https://www.unknown7.xyz/mq/videos/"

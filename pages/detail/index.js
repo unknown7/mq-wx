@@ -1,4 +1,5 @@
 // pages/detail/index.js
+import Share from '../../palette/share';
 var app = getApp();
 Page({
 
@@ -10,32 +11,86 @@ Page({
     videoPath: "",
     descriptionPath: "",
     video: {},
+    videoContext: null,
     widthFix: "widthFix",
-    disabledWatch: false
+    disabledWatch: false,
+    auth: false,
+    template: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    var that = this;
-    that.data.videoContext = wx.createVideoContext("video");
-    var id = options.id;
+  onLoad: function(options) {
+    let that = this;
     let skey = wx.getStorageSync("skey");
+    let userInfo = wx.getStorageSync("userInfo");
+    that.setData({
+      videoContext: wx.createVideoContext("video"),
+      auth: userInfo ? true : false
+    });
+    let id = options.id;
+    /**
+     * 获取视频信息
+     */
     wx.request({
       url: app.globalData.subDomain + 'video/getVideo',
       data: {
         id: id,
         skey: skey
       },
-      success: function (res) {
+      success: function(res) {
         that.setData({
           video: res.data,
           videoPath: app.globalData.videoPath + res.data.videoRealName,
           descriptionPath: app.globalData.imagePath + res.data.descriptionRealName
-        }); 
+        });
       }
     });
+
+    /**
+    * 生成小程序码
+    */
+    wx.request({
+      url: app.globalData.subDomain + 'video/generateWxQrcode',
+      data: {
+        videoId: id,
+        skey: skey
+      },
+      success: function (res) {
+        let data = res.data;
+        console.log(data);
+        if (data.success) {
+          that.setData({
+            template: new Share(data.data).palette(),
+          });
+        }
+        
+      }
+    });
+  },
+
+  onPurchase: function() {
+    wx.navigateTo({
+      url: '/pages/purchase/index',
+    });
+  },
+
+  onShare: function() {
+    let that = this;
+    let skey = wx.getStorageSync("skey");
+    if (skey) {
+      wx.showToast({
+        icon: 'none',
+        title: '登陆失败，请刷新',
+        duration: 2000
+      });
+    } else {
+      wx.showToast({
+        title: '登陆失败，请刷新',
+        duration: 2000
+      });
+    }
   },
 
   bindtimeupdate: function(e) {
@@ -53,7 +108,7 @@ Page({
     }
   },
 
-  bindplay: function (e) {
+  bindplay: function(e) {
     let that = this;
     if (that.data.disabledWatch) {
       let videoContext = that.data.videoContext;
@@ -63,7 +118,7 @@ Page({
     }
   },
 
-  bindfullscreenchange:function(e) {
+  bindfullscreenchange: function(e) {
     let that = this;
     that.setData({
       widthFix: "widthFix"
@@ -93,49 +148,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
+  onReady: function() {
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

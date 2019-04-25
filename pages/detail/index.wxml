@@ -6,6 +6,8 @@
     </video>
   </view>
 
+  <painter customStyle='margin-left:40rpx' palette="{{template}}" bind:imgOK="onImgOK" />
+
   <van-row>
     <van-col offset="1" span="22">
       <text style='font-size: 36rpx;'>{{video.title}}</text>
@@ -41,5 +43,23 @@
   <view class="description-view">
     <image class="image" src="{{descriptionPath}}" mode="{{widthFix}}"></image>
   </view>
+
+  <van-goods-action
+    
+  >
+  <van-goods-action-button
+    text="分享"
+    type="warning"
+    bind:click="onShare"
+    custom-class="share-button"
+  />
+  <van-goods-action-button
+    text="立即购买"
+    bind:click="{{loginFlag ? 'onPurchase' : ''}}"
+    custom-class="purchase-button"
+    open-type="{{!loginFlag ? 'getUserInfo' : ''}}"
+  />
+</van-goods-action>
+
 </scroll-view>
 

@@ -16,7 +16,6 @@ Page({
     let detail = e.detail;
     if (detail.userInfo) {
       wx.setStorageSync("userInfo", detail.userInfo);
-      app.globalData.userInfo = detail.userInfo;
       wx.login({
         success: function (loginRes) {
           wx.request({
@@ -53,8 +52,8 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    let skey = wx.getStorageSync("skey");
-    if (!skey) {
+    let userInfo = wx.getStorageSync("userInfo");
+    if (!userInfo) {
       that.setData({
         show: true
       });
