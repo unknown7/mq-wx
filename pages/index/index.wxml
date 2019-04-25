@@ -1,0 +1,60 @@
+<!--pages/wxml/index.wxml-->
+<button bindtap='clearCache'>clear cache</button>
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />
+
+<scroll-view scroll-y="true" style="width:100%;min-height:100%;">
+
+  <view class="swiper-container">
+    <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current='swiperCurrent' bindchange="swiperChange">
+      <swiper-item class='swiper_item' wx:for="{{banners}}" wx:key="id">
+        <image bindtap="tapBanner" data-id="{{item.id}}" src="{{imagePath + item.imageRealName}}" class="slide-image" style="-webkit-transform: scale({{ swiperCurrent == index ? 0.9 : 0.65 }}) translate({{ (swiperCurrent == index - 1 || swiperCurrent == index + 1) ? (swiperCurrent - index) * 30 : 0 }}%, 0); -webkit-transition: 0.6s;"
+          mode="aspectFill" />
+      </swiper-item>
+    </swiper>
+    <view class="dots">
+      <block wx:for="{{banners}}" wx:key="unique">
+        <view class="dot{{index === swiperCurrent ? ' active' : ''}}"></view>
+      </block>
+    </view>
+  </view>
+
+  <van-tabs swipeable animated bind:change="classificationChange">
+    <block wx:for="{{classifications}}" wx:key="id" wx:for-item="classification">
+      <van-tab title="{{classification.vName}}">
+        <view class="transparent-line"></view>
+        <block wx:for="{{videos}}" wx:key="id" wx:for-item="video" wx:for-index="index">
+          <van-row wx:if="{{video.classification == classification.id}}" bindtap="videoClick" data-id="{{video.id}}" custom-class="row">
+            <van-col offset="2" span="6">
+              <image class="cover" src="{{imagePath + video.coverRealName}}"></image>
+            </van-col>
+            <van-col offset="2" span="12">
+              <van-row>
+                <van-col span="24">
+                  <text class="text-title">{{video.title}}</text>
+                </van-col>
+              </van-row>
+              <van-row>
+                <van-col span="24">
+                  <view class="van-multi-ellipsis--l2">
+                    <text class="text">{{video.subtitle}}</text>
+                  </view>
+                </van-col>
+              </van-row>
+              <van-row>
+                <van-col span="18">
+                  <text class="text">已有{{video.watched}}次观看</text>
+                </van-col>
+                <van-col span="6">
+                  <text class="text-price">￥{{video.price}}</text>
+                </van-col>
+              </van-row>
+            </van-col>
+          </van-row>
+          <view wx:if="{{video.classification == classification.id}}" class="line"></view>
+        </block>
+      </van-tab>
+    </block>
+  </van-tabs>
+
+</scroll-view>
