@@ -19,12 +19,12 @@
     </view>
   </view>
 
-  <van-tabs swipeable animated bind:change="classificationChange">
+  <van-tabs swipeable animated>
     <block wx:for="{{classifications}}" wx:key="id" wx:for-item="classification">
       <van-tab title="{{classification.vName}}">
         <view class="transparent-line"></view>
         <block wx:for="{{videos}}" wx:key="id" wx:for-item="video" wx:for-index="index">
-          <van-row wx:if="{{video.classification == classification.id}}" bindtap="videoClick" data-id="{{video.id}}" custom-class="row">
+          <van-row wx:if="{{video.classification == classification.id}}" bindtap="videoClick" open-type="getUserInfo" data-id="{{video.id}}" custom-class="row">
             <van-col offset="2" span="6">
               <image class="cover" src="{{imagePath + video.coverRealName}}"></image>
             </van-col>

@@ -72,7 +72,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    console.log("share..");
+    return {
+      title: "test",
+      path: "pages/index/index",
+      success: function(res) {
+        console.log("success..." + res);
+      },
+      fail: function(res) {
+        console.log("fail..." + res)
+      }
+    };
   },
 
   // banner改变事件

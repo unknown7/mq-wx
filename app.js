@@ -22,9 +22,14 @@
  *    4、继续业务流程
  */
 App({
-  onLaunch: function() {
+  onLaunch: function (opt) {
     var that = this;
     that.checkLoginStatus();
+    console.log("onLauch.." + opt);
+  },
+
+  onShow: function (opt) {
+    console.log("onShow.." + opt);
   },
 
   checkLoginStatus: function() {

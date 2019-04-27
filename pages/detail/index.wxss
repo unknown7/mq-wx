@@ -1,9 +1,7 @@
 /* pages/detail/index.wxss */
-
-.container {
-  width: 750rpx;
-  position: relative;
-  background-color: white;
+Page {
+  overflow-y: hidden;
+  height: 100%;
 }
 
 .item {
@@ -59,4 +57,18 @@
 .purchase-button {
   background-color: rgba(34, 139, 34, 0.76) !important;
   border: 0rpx !important;
+}
+
+.share-card {
+  background-color: black;
+  height: 410rpx;
+  margin: 0.1px;
+  padding-bottom: 10rpx;
+}
+
+.transparent-line {
+  margin: 8px auto;
+  width: 90%;
+  height: 2rpx;
+  background-color: transparent
 }

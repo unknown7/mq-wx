@@ -1,12 +1,23 @@
 <!--pages/detail/index.wxml-->
 
-<scroll-view scroll-y="true" style="width:100%;min-height:100%;">
+<scroll-view scroll-y="{{isScroll}}" style="{{isScroll ? '' : 'height: 100%;'}}">
   <view class='item'>
-    <video id='video' style='width: 100%;' src="{{videoPath}}" controls bindtimeupdate="bindtimeupdate" bindfullscreenchange="bindfullscreenchange" bindplay='bindplay'>
+    <video id='video' style='width: 100%;' src="{{videoPath}}" controls bindtimeupdate="bindtimeupdate" bindfullscreenchange="bindfullscreenchange" bindplay='bindplay' hidden="{{videoSwitch}}">
     </video>
-  </view>
 
-  <painter customStyle='margin-left:40rpx' palette="{{template}}" bind:imgOK="onImgOK" />
+    <view class="share-card" hidden="{{shareCardSwitch}}">
+      <painter wx:if="{{!shareCard}}" class="share-card" customStyle='margin-left: 80rpx; margin-top: 70rpx;' palette="{{template}}" bind:imgOK="onImgOK" bind:imgErr="onImgErr" />
+
+      <image style='margin-left: 80rpx; margin-top: 114rpx; width: 560rpx; height: 800rpx; position: relative;' wx:if="{{shareCard}}" src="{{shareCard}}"></image>
+
+      <view wx:if="{{shareCard}}" class='transparent-line'></view>
+
+      <view style='text-align: center;'>
+        <van-icon name="close" size="36px" bind:click="onCloseShareCard" />
+      </view>
+
+    </view>
+  </view>
 
   <van-row>
     <van-col offset="1" span="22">
@@ -44,22 +55,9 @@
     <image class="image" src="{{descriptionPath}}" mode="{{widthFix}}"></image>
   </view>
 
-  <van-goods-action
-    
-  >
-  <van-goods-action-button
-    text="分享"
-    type="warning"
-    bind:click="onShare"
-    custom-class="share-button"
-  />
-  <van-goods-action-button
-    text="立即购买"
-    bind:click="{{loginFlag ? 'onPurchase' : ''}}"
-    custom-class="purchase-button"
-    open-type="{{!loginFlag ? 'getUserInfo' : ''}}"
-  />
-</van-goods-action>
+  <van-goods-action>
+    <van-goods-action-button text="我的邀请卡" type="warning" bind:click="{{auth ? 'onShare' : ''}}" custom-class="share-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="bindGetUserInfo"/>
+    <van-goods-action-button text="立即购买" bind:click="{{auth ? 'onPurchase' : ''}}" custom-class="purchase-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="bindGetUserInfo"/>
+  </van-goods-action>
 
 </scroll-view>
-
