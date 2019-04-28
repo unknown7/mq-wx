@@ -6,9 +6,9 @@
     </video>
 
     <view class="share-card" hidden="{{shareCardSwitch}}">
-      <painter wx:if="{{!shareCard}}" class="share-card" customStyle='margin-left: 80rpx; margin-top: 70rpx;' palette="{{template}}" bind:imgOK="onImgOK" bind:imgErr="onImgErr" />
+      <painter wx:if="{{!shareCard}}" class="share-card" customStyle='margin-left: 106rpx; margin-top: 70rpx;' palette="{{template}}" bind:imgOK="onImgOK" bind:imgErr="onImgErr" bindlongpress="onShowActionSheet" data-src="{{shareCard}}" />
 
-      <image style='margin-left: 80rpx; margin-top: 114rpx; width: 560rpx; height: 800rpx; position: relative;' wx:if="{{shareCard}}" src="{{shareCard}}"></image>
+      <image style='margin-left: 106rpx; margin-top: 114rpx; width: 520rpx; height: 800rpx; position: relative;' wx:if="{{shareCard}}" src="{{shareCard}}" bindlongpress="onShowActionSheet" data-src="{{shareCard}}"></image>
 
       <view wx:if="{{shareCard}}" class='transparent-line'></view>
 
@@ -56,8 +56,10 @@
   </view>
 
   <van-goods-action>
-    <van-goods-action-button text="我的邀请卡" type="warning" bind:click="{{auth ? 'onShare' : ''}}" custom-class="share-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="bindGetUserInfo"/>
-    <van-goods-action-button text="立即购买" bind:click="{{auth ? 'onPurchase' : ''}}" custom-class="purchase-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="bindGetUserInfo"/>
+    <van-goods-action-button text="我的邀请卡" type="warning" bind:click="{{auth ? 'onShare' : ''}}" custom-class="share-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="shareGetUserInfo" disabled="{{shareButtonDisabled}}" />
+    <van-goods-action-button text="立即购买" bind:click="{{auth ? 'onPurchase' : ''}}" custom-class="purchase-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="pruchaseGetUserInfo" disabled="{{purchaseButtonDisabled}}" />
   </van-goods-action>
+
+  <van-action-sheet show="{{ showActionSheet }}" actions="{{ actions }}" bind:select="onActionSheetSelect" bind:close="onActionSheetClose" cancel-text="取消" bind:cancel="onActionSheetCancel" close-on-click-overlay="{{true}}"/>
 
 </scroll-view>
