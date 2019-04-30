@@ -1,4 +1,6 @@
 <!--pages/detail/index.wxml-->
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />
 
 <scroll-view scroll-y="{{isScroll}}" style="{{isScroll ? '' : 'height: 100%;'}}">
   <view class='item'>
@@ -57,9 +59,9 @@
 
   <van-goods-action>
     <van-goods-action-button text="我的邀请卡" type="warning" bind:click="{{auth ? 'onShare' : ''}}" custom-class="share-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="shareGetUserInfo" disabled="{{shareButtonDisabled}}" />
-    <van-goods-action-button text="立即购买" bind:click="{{auth ? 'onPurchase' : ''}}" custom-class="purchase-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="pruchaseGetUserInfo" disabled="{{purchaseButtonDisabled}}" />
+    <van-goods-action-button text="立即购买" bind:click="{{auth ? 'onPurchase' : ''}}" custom-class="purchase-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="purchaseGetUserInfo" disabled="{{purchaseButtonDisabled}}" />
   </van-goods-action>
 
-  <van-action-sheet show="{{ showActionSheet }}" actions="{{ actions }}" bind:select="onActionSheetSelect" bind:close="onActionSheetClose" cancel-text="取消" bind:cancel="onActionSheetCancel" close-on-click-overlay="{{true}}"/>
+  <van-action-sheet show="{{ showActionSheet }}" actions="{{ actions }}" bind:select="onActionSheetSelect" bind:close="onActionSheetClose" cancel-text="取消" bind:cancel="onActionSheetCancel" close-on-click-overlay="{{true}}" />
 
 </scroll-view>

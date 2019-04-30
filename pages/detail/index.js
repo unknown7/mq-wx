@@ -1,5 +1,7 @@
 // pages/detail/index.js
 import Share from '../../palette/share';
+import Notify from '../../dist/notify/notify';
+import Toast from '../../dist/toast/toast';
 var app = getApp();
 
 Page({
@@ -160,6 +162,46 @@ Page({
     }
   },
 
+  purchaseGetUserInfo: function(e) {
+    var that = this;
+    let detail = e.detail;
+    if (detail.userInfo) {
+      that.btnDisabled();
+      wx.setStorageSync("userInfo", detail.userInfo);
+      wx.login({
+        success: function (loginRes) {
+          wx.request({
+            url: app.globalData.subDomain + "saveUser",
+            data: {
+              code: loginRes.code, // 临时登录凭证
+              rawData: detail.rawData, // 用户非敏感信息
+              signature: detail.signature, // 签名
+              encryptedData: detail.encryptedData, // 用户敏感信息
+              iv: detail.iv // 解密算法的向量
+            },
+            success: function (res) {
+              if (res.data != null) {
+                console.log("register success..");
+                wx.setStorageSync("skey", res.data);
+                that.setData({
+                  auth: true
+                });
+                that.purchase();
+              } else {
+                Toast.fail('授权失败');
+                that.btnEnable();
+              }
+            },
+            fail: function () {
+              Toast.fail('授权失败');
+              that.btnEnable();
+            }
+          });
+        }
+      });
+    }
+  },
+
   onImgOK: function(e) {
     let that = this;
     wx.hideToast();
@@ -182,8 +224,33 @@ Page({
   },
 
   onPurchase: function() {
-    wx.navigateTo({
-      url: '/pages/purchase/index?videoI=' + that.data.video.id
+    let that = this;
+    that.purchase();
+  },
+
+  purchase: function() {
+    let that = this;
+    let skey = wx.getStorageSync("skey");
+    let videoId = that.data.video.id;
+    wx.request({
+      url: app.globalData.subDomain + "video/purchase",
+      data: {
+        skey: skey,
+        videoId: videoId
+      },
+      success: function (res) {
+        if (res.data.success) {
+          console.log("purchase success..skey=" + skey);
+          that.btnEnable();
+        } else {
+          Toast.fail('购买失败');
+          that.btnEnable();
+        }
+      },
+      fail: function () {
+        Toast.fail('购买失败');
+        that.btnEnable();
+      }
     });
   },
 
@@ -378,9 +445,7 @@ Page({
       confirmText: "购买",
       success(res) {
         if (res.confirm) {
-          wx.navigateTo({
-            url: '/pages/purchase/index?videoI=' + that.data.video.id,
-          });
+          that.purchase();
         }
       }
     });
