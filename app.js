@@ -102,5 +102,11 @@ App({
     // subDomain: "https://www.unknown7.xyz/mq/wx/",
     // imagePath: "https://www.unknown7.xyz/mq/images/",
     // videoPath: "https://www.unknown7.xyz/mq/videos/"
+    /**
+     * 生产服务器
+     */
+    // subDomain: "https://www.mqyoga.cn/mq/wx/",
+    // imagePath: "https://www.mqyoga.cn/mq/images/",
+    // videoPath: "https://www.mqyoga.cn/mq/videos/"
   }
 })
