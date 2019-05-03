@@ -230,6 +230,7 @@ Page({
 
   purchase: function() {
     let that = this;
+    that.btnDisabled();
     let skey = wx.getStorageSync("skey");
     let videoId = that.data.video.id;
     wx.request({
@@ -240,8 +241,22 @@ Page({
       },
       success: function (res) {
         if (res.data.success) {
-          console.log("purchase success..skey=" + skey);
-          that.btnEnable();
+          console.log("unified order success..");
+          wx.requestPayment({
+            timeStamp: res.data.data.timeStamp,
+            nonceStr: res.data.data.nonceStr,
+            package: res.data.data.package,
+            signType: res.data.data.signType,
+            paySign: res.data.data.paySign,
+            success(res) {
+              console.log("pay success..");
+              that.btnEnable();
+            },
+            fail(res) {
+              console.log("pay fail..");
+              that.btnEnable();
+            }
+          });
         } else {
           Toast.fail('购买失败');
           that.btnEnable();
