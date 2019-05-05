@@ -145,7 +145,7 @@ Page({
     let that = this;
     var videoId = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/detail/index?id=' + videoId,
+      url: '/pages/video/index?id=' + videoId,
     });
   },
 

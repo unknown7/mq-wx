@@ -2,7 +2,7 @@
   "pages":[
     "pages/index/index",
     "pages/account/index",
-    "pages/detail/index",
+    "pages/video/index",
     "pages/purchase/index"
   ],
   "window":{

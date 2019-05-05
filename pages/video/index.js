@@ -124,69 +124,49 @@ Page({
 
   shareGetUserInfo: function(e) {
     var that = this;
-    let detail = e.detail;
-    if (detail.userInfo) {
-      that.btnDisabled();
-      wx.setStorageSync("userInfo", detail.userInfo);
-      wx.login({
-        success: function(loginRes) {
-          wx.request({
-            url: app.globalData.subDomain + "saveUser",
-            data: {
-              code: loginRes.code, // 临时登录凭证
-              rawData: detail.rawData, // 用户非敏感信息
-              signature: detail.signature, // 签名
-              encryptedData: detail.encryptedData, // 用户敏感信息
-              iv: detail.iv // 解密算法的向量
-            },
-            success: function(res) {
-              if (res.data != null) {
-                console.log("register success..");
-                wx.setStorageSync("skey", res.data);
-                that.setData({
-                  auth: true
-                });
-                that.onShare();
-              } else {
-                Toast.fail('授权失败');
-                that.btnEnable();
-              }
-            },
-            fail: function() {
-              Toast.fail('授权失败');
-              that.btnEnable();
-            }
-          });
-        }
-      });
-    }
+    that.saveUser(e, function() {
+      that.onShare();
+    });
   },
 
   purchaseGetUserInfo: function(e) {
     var that = this;
+    that.saveUser(e, function() {
+      that.purchase();
+    });
+  },
+
+  saveUser: function(e, call) {
+    let that = this;
     let detail = e.detail;
     if (detail.userInfo) {
       that.btnDisabled();
-      wx.setStorageSync("userInfo", detail.userInfo);
       wx.login({
         success: function (loginRes) {
+          let data = {
+            code: loginRes.code, // 临时登录凭证
+            rawData: detail.rawData, // 用户非敏感信息
+            signature: detail.signature, // 签名
+            encryptedData: detail.encryptedData, // 用户敏感信息
+            iv: detail.iv // 解密算法的向量
+          };
+          let scene = wx.getStorageSync("scene");
+          if (scene) {
+            data.scene = scene;
+          };
           wx.request({
             url: app.globalData.subDomain + "saveUser",
-            data: {
-              code: loginRes.code, // 临时登录凭证
-              rawData: detail.rawData, // 用户非敏感信息
-              signature: detail.signature, // 签名
-              encryptedData: detail.encryptedData, // 用户敏感信息
-              iv: detail.iv // 解密算法的向量
-            },
+            data: data,
             success: function (res) {
-              if (res.data != null) {
+              console.log(JSON.stringify(res));
+              if (res.data.success) {
                 console.log("register success..");
-                wx.setStorageSync("skey", res.data);
+                wx.setStorageSync("skey", res.data.skey);
+                wx.setStorageSync("userInfo", res.data.userVo);
                 that.setData({
                   auth: true
                 });
-                that.purchase();
+                call.call();
               } else {
                 Toast.fail('授权失败');
                 that.btnEnable();
@@ -233,12 +213,18 @@ Page({
     that.btnDisabled();
     let skey = wx.getStorageSync("skey");
     let videoId = that.data.video.id;
+    let scene = wx.getStorageSync("scene");
+    let data = {
+      skey: skey,
+      videoId: videoId
+    };
+    if (scene) {
+      data.scene = scene;
+    }
+    console.log(JSON.stringify(data));
     wx.request({
       url: app.globalData.subDomain + "video/purchase",
-      data: {
-        skey: skey,
-        videoId: videoId
-      },
+      data: data,
       success: function (res) {
         if (res.data.success) {
           console.log("unified order success..");
