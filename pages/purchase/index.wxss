@@ -1,1 +1,21 @@
-/* pages/purchase/index.wxss */
+.title {
+  font-size: 34rpx;
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+.price {
+  font-size: 76rpx;
+  text-align: center;
+  margin-top: 20rpx;
+  font-weight: bold;
+}
+
+.purchase-btn {
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.cell {
+  text-align: center;
+}

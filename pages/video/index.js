@@ -210,48 +210,12 @@ Page({
 
   purchase: function() {
     let that = this;
-    that.btnDisabled();
-    let skey = wx.getStorageSync("skey");
     let videoId = that.data.video.id;
-    let scene = wx.getStorageSync("scene");
-    let data = {
-      skey: skey,
-      videoId: videoId
-    };
-    if (scene) {
-      data.scene = scene;
-    }
-    console.log(JSON.stringify(data));
-    wx.request({
-      url: app.globalData.subDomain + "video/purchase",
-      data: data,
-      success: function (res) {
-        if (res.data.success) {
-          console.log("unified order success..");
-          wx.requestPayment({
-            timeStamp: res.data.data.timeStamp,
-            nonceStr: res.data.data.nonceStr,
-            package: res.data.data.package,
-            signType: res.data.data.signType,
-            paySign: res.data.data.paySign,
-            success(res) {
-              console.log("pay success..");
-              that.btnEnable();
-            },
-            fail(res) {
-              console.log("pay fail..");
-              that.btnEnable();
-            }
-          });
-        } else {
-          Toast.fail('购买失败');
-          that.btnEnable();
-        }
-      },
-      fail: function () {
-        Toast.fail('购买失败');
-        that.btnEnable();
-      }
+    let price = that.data.video.price;
+    let classificationName = that.data.video.classificationName;
+    let title = that.data.video.title;
+    wx.navigateTo({
+      url: '/pages/purchase/index?id=' + videoId + '&price=' + price + '&classificationName=' + classificationName + '&title=' + title
     });
   },
 

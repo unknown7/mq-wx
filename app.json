@@ -27,6 +27,8 @@
     "van-goods-action-button": "dist/goods-action-button/index",
     "van-icon": "dist/icon/index",
     "van-action-sheet": "dist/action-sheet/index",
+    "van-cell": "dist/cell/index",
+    "van-cell-group": "dist/cell-group/index",
     "painter": "dist/painter/painter"
   },
   "tabBar": {
