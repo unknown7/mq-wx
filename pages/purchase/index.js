@@ -155,7 +155,9 @@ Page({
         if (res.data.isPurchased) {
           call.call();
         } else {
-            getVideo(id, skey, call);
+            setTimeout(function() {
+              that.getVideo(id, skey, call);
+            }, 2000);
         }
       }
     });
