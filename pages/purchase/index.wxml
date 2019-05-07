@@ -4,11 +4,11 @@
 <van-cell title-class="cell" title="商品" title-width="60px" value='{{"木荃瑜伽-" + classificationName + "-" + title}}' size="large" />
 <van-cell title-class="cell" title="积分" title-width="60px" size="large">
   <view wx:if="{{points > 0}}">
-    <switch type="checkbox" bindchange="onSwitchChange" />
+    <switch type="checkbox" checked="{{checked}}" bindchange="onSwitchChange" />
     {{points}}
   </view>
   <view wx:if="{{points <= 0}}">暂无可用积分</view>
 </van-cell>
-<button class="purchase-btn" type="primary" bindtap="primary" disabled="{{buttonDisabled}}">
+<button class="purchase-btn" type="primary" bindtap="purchase" disabled="{{buttonDisabled}}">
   立即支付
 </button>

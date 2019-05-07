@@ -14,6 +14,7 @@
 .purchase-btn {
   margin-left: 30rpx;
   margin-right: 30rpx;
+  margin-top: 30rpx;
 }
 
 .cell {

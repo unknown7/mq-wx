@@ -10,23 +10,32 @@ Page({
     classificationName: "",
     title: "",
     points: 0,
-    buttonDisabled: false
+    buttonDisabled: false,
+    whetherUsePoints: false,
+    checked: false
   },
 
   purchase: function() {
     let that = this;
     that.btnDisabled();
     let skey = wx.getStorageSync("skey");
-    let id = that.data.video.id;
+    let id = that.data.id;
+    let whetherUsePoints = that.data.whetherUsePoints;
+    let usedPoints = that.data.points;
+    let price = that.data.price;
+    let originPrice = that.data.originPrice;
     let scene = wx.getStorageSync("scene");
     let data = {
       skey: skey,
-      videoId: id
+      videoId: id,
+      whetherUsePoints: whetherUsePoints,
+      usedPoints: usedPoints,
+      price: price,
+      originPrice: originPrice,
     };
     if (scene) {
       data.scene = scene;
     }
-    console.log(JSON.stringify(data));
     wx.request({
       url: app.globalData.subDomain + "payment/purchase",
       data: data,
@@ -41,7 +50,18 @@ Page({
             paySign: res.data.data.paySign,
             success(res) {
               console.log("pay success..");
-              that.btnEnable();
+              wx.showToast({
+                title: "等待支付通知...",
+                icon: "loading",
+                duration: 9999999
+              });
+              that.getVideo(id, skey, function() {
+                that.btnEnable();
+                wx.hideToast();
+                wx.navigateBack({
+                  delta: 1
+                });
+              });
             },
             fail(res) {
               console.log("pay fail..");
@@ -49,7 +69,32 @@ Page({
             }
           });
         } else {
-          Toast.fail('购买失败');
+          let msg = res.data.data;
+          if ("invalid_param_price" == msg) {
+            wx.showModal({
+              title: '支付页面已过期',
+              content: '请点击确定返回商品信息页面',
+              showCancel: false,
+              success(res) {
+                if (res.confirm) {
+                  wx.navigateBack({
+                    delta: 1
+                  });
+                }
+              }
+            });
+          } else if ("invalid_param_points" == msg) {
+            wx.showModal({
+              title: '您的积分已更新',
+              content: '请点击确定刷新积分',
+              showCancel: false,
+              success(res) {
+                if (res.confirm) {
+                  that.loadPoints();
+                }
+              }
+            });
+          }
           that.btnEnable();
         }
       },
@@ -64,13 +109,55 @@ Page({
     let that = this;
     let checked = e.detail.value;
     let price;
+    let whetherUsePoints;
     if (checked) {
       price = (that.data.price - that.data.points).toFixed(2);
+      whetherUsePoints = true;
     } else {
       price = that.data.originPrice;
+      whetherUsePoints = false;
     }
     that.setData({
-      price: price
+      price: price,
+      whetherUsePoints: whetherUsePoints
+    });
+  },
+
+  loadPoints: function() {
+    let that = this;
+    let skey = wx.getStorageSync("skey");
+    /**
+     * 获取积分信息
+     */
+    wx.request({
+      url: app.globalData.subDomain + 'payment/getPoints',
+      data: {
+        skey: skey
+      },
+      success: function (res) {
+        that.setData({
+          points: res.data,
+          checked: false
+        });
+      }
+    });
+  },
+
+  getVideo: function(id, skey, call) {
+    let that = this;
+    wx.request({
+      url: app.globalData.subDomain + 'video/getVideo',
+      data: {
+        id: id,
+        skey: skey
+      },
+      success: function (res) {
+        if (res.data.isPurchased) {
+          call.call();
+        } else {
+            getVideo(id, skey, call);
+        }
+      }
     });
   },
 
@@ -104,22 +191,7 @@ Page({
       classificationName: classificationName,
       title: title
     });
-    let skey = wx.getStorageSync("skey");
-    /**
-     * 获取积分信息
-     */
-    wx.request({
-      url: app.globalData.subDomain + 'payment/getPoints',
-      data: {
-        skey: skey
-      },
-      success: function (res) {
-        res.data = 3.69;
-        that.setData({
-          points: res.data
-        });
-      }
-    });
+    that.loadPoints();
   },
 
   /**
