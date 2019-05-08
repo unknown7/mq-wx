@@ -22,11 +22,10 @@
  *    4、继续业务流程
  */
 App({
-  onLaunch: function (query) {
+  onLaunch: function (opt) {
     var that = this;
-    console.log(query);
-    const scene = decodeURIComponent(query.scene);
-    // const scene = "shareCardId=87";
+    // const scene = decodeURIComponent(opt.scene);
+    const scene = "shareCardId=3";
     console.log(scene);
     // wx.setStorageSync("scene", scene);
     that.checkLoginStatus();

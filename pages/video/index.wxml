@@ -63,6 +63,4 @@
     <van-goods-action-button wx:if="{{video.isPurchased}}" text="已购买" custom-class="purchase-button" disabled="{{true}}" />
   </van-goods-action>
 
-  <van-action-sheet show="{{ showActionSheet }}" actions="{{ actions }}" bind:select="onActionSheetSelect" bind:close="onActionSheetClose" cancel-text="取消" bind:cancel="onActionSheetCancel" close-on-click-overlay="{{true}}" />
-
 </scroll-view>

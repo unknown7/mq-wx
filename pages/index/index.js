@@ -58,7 +58,18 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    let that = this;
+    // 显示顶部刷新图标
+    wx.showNavigationBarLoading();
+    that.getBanners();
+    that.getClassifications();
+    that.getVideos();
+    setTimeout(function () {
+      // 隐藏导航栏加载框
+      wx.hideNavigationBarLoading();
+      // 停止下拉动作
+      wx.stopPullDownRefresh();
+    }, 500);
   },
 
   /**
@@ -72,17 +83,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    console.log("share..");
-    return {
-      title: "test",
-      path: "pages/index/index",
-      success: function(res) {
-        console.log("success..." + res);
-      },
-      fail: function(res) {
-        console.log("fail..." + res)
-      }
-    };
   },
 
   // banner改变事件

@@ -114,7 +114,7 @@ Page({
       price = (that.data.price - that.data.points).toFixed(2);
       whetherUsePoints = true;
     } else {
-      price = that.data.originPrice;
+      price = parseFloat(that.data.originPrice).toFixed(2);
       whetherUsePoints = false;
     }
     that.setData({
@@ -183,7 +183,7 @@ Page({
   onLoad: function (options) {
     let that = this;
     let id = options.id;
-    let price = options.price;
+    let price = parseFloat(options.price).toFixed(2);
     let classificationName = options.classificationName;
     let title = options.title;
     that.setData({

@@ -6,9 +6,9 @@
     "pages/purchase/index"
   ],
   "window":{
-    "backgroundTextStyle":"light",
+    "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "木荃孕产",
+    "navigationBarTitleText": "木荃瑜伽",
     "navigationBarTextStyle":"black"
   },
   "usingComponents": {

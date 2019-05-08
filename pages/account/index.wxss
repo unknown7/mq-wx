@@ -1,21 +1,51 @@
-/* pages/account/index.wxss */
-
-form {
-  width: 750rpx;
+.register {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: block;
 }
 
+.logo-info {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-top: 70rpx;
+}
 .logo {
-  width: 560rpx;
-  height: 80rpx;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  display: block;
+  overflow: hidden;
+}
+
+.allow-info {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.allow {
   margin-top: 50rpx;
-  margin-left: 50rpx;
-  margin-right: 150rpx;
+  display: block;
+  overflow: hidden;
+  width: 500rpx;
+  border-color: black;
 }
 
 .title {
   text-align: center;
   margin-top: 70rpx;
   font-size: 20px;
+}
+
+.auth-btn {
+  margin-top: 90rpx;
+  margin-left: 80rpx;
+  margin-right: 80rpx;
+  background-color: rgba(255, 123, 0, 0.567);
+  color: white;
 }
 
 .profile {
@@ -26,12 +56,12 @@ form {
 }
 
 .user-info {
-  width: 100%;
-  height: 200rpx;
-  line-height: 200rpx;
-  align-items: center;
-  justify-content: center;
-  display: flex;
+  padding-top: 50rpx;
+  color: #a9a9a9;
+}
+
+.user-info-text {
+  margin-top: 20rpx;
 }
 
 .user-avatar {
@@ -42,6 +72,47 @@ form {
   overflow: hidden;
 }
 
+.row {
+  padding: 6px 0px 0px 0px!important;
+}
+
+.line {
+  margin: 4px auto;
+  width: 90%;
+  height: 2rpx;
+  background-color: whitesmoke
+}
+
+.transparent-line {
+  margin: 4px auto;
+  width: 90%;
+  height: 2rpx;
+  background-color: transparent
+}
+
+.cover {
+  width: 110px;
+  height: 90px;
+  border-radius: 15rpx;
+}
+
+.text-title {
+  font-size: 32rpx;
+}
+
+.van-multi-ellipsis--l2 {
+  color: #a9a9a9;
+}
+
+.text {
+  color: #a9a9a9;
+  font-size: 26rpx;
+}
+
+.purchased-video {
+  margin-top: 40rpx;
+}
+
 .user-nick-name {
-  margin-left: 50rpx;
+  
 }

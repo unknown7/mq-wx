@@ -25,10 +25,6 @@ Page({
     shareCard: "",
     shareButtonDisabled: false,
     purchaseButtonDisabled: false,
-    showActionSheet: false,
-    actions: [{
-      name: '保存'
-    }]
   },
 
   /**
@@ -65,44 +61,29 @@ Page({
 
   onShowActionSheet: function(e) {
     let that = this;
-    that.setData({
-      showActionSheet: true
-    });
-  },
-
-  onActionSheetSelect: function() {
-    let that = this;
-    wx.downloadFile({
-      url: that.data.shareCard,
+    wx.showActionSheet({
+      itemList: ['保存'],
       success: function(res) {
-        wx.saveImageToPhotosAlbum({
-          filePath: res.tempFilePath,
-          success: function() {
-            that.setData({
-              showActionSheet: false
-            });
-            that.closeShareCard();
-            that.btnEnable();
-            wx.showToast({
-              title: "保存成功",
+        wx.downloadFile({
+          url: that.data.shareCard,
+          success: function (res) {
+            console.log(res);
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success: function () {
+                that.closeShareCard();
+                that.btnEnable();
+                wx.showToast({
+                  title: "保存成功",
+                });
+              },
+              fail: function(res) {
+                console.log("fail.." + JSON.stringify(res));
+              }
             });
           }
         });
       }
-    });
-  },
-
-  onActionSheetClose: function() {
-    let that = this;
-    that.setData({
-      showActionSheet: false
-    });
-  },
-
-  onActionSheetCancel: function() {
-    let that = this;
-    that.setData({
-      showActionSheet: false
     });
   },
 
@@ -214,8 +195,12 @@ Page({
     let price = that.data.video.price;
     let classificationName = that.data.video.classificationName;
     let title = that.data.video.title;
+    that.btnDisabled();
     wx.navigateTo({
-      url: '/pages/purchase/index?id=' + videoId + '&price=' + price + '&classificationName=' + classificationName + '&title=' + title
+      url: '/pages/purchase/index?id=' + videoId + '&price=' + price + '&classificationName=' + classificationName + '&title=' + title,
+      success: function() {
+        that.btnEnable();
+      }
     });
   },
 
@@ -455,7 +440,20 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    let that = this;
+    let id = that.data.video.id;
+    let options = {
+      id: id
+    };
+    // 显示顶部刷新图标
+    wx.showNavigationBarLoading();
+    that.onLoad(options);
+    setTimeout(function () {
+      // 隐藏导航栏加载框
+      wx.hideNavigationBarLoading();
+      // 停止下拉动作
+      wx.stopPullDownRefresh();
+    }, 500);
   },
 
   /**
