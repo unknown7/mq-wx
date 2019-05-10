@@ -80,7 +80,7 @@ Page({
     });
     setTimeout(function() {
       call.call();
-    }, 500);
+    }, 300);
   },
 
   videoClick: function(e) {

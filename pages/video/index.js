@@ -453,7 +453,7 @@ Page({
       wx.hideNavigationBarLoading();
       // 停止下拉动作
       wx.stopPullDownRefresh();
-    }, 500);
+    }, 300);
   },
 
   /**
