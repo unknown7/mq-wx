@@ -92,6 +92,16 @@ Page({
     })
   },
 
+  // banner点击事件
+  tapBanner: function(e) {
+    let videoId = e.currentTarget.dataset.videoId;
+    if (videoId) {
+      wx.navigateTo({
+        url: '/pages/video/index?id=' + videoId,
+      });
+    }
+  },
+
   // classification改变事件
   classificationChange: function(e) {
   },

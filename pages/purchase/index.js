@@ -55,7 +55,7 @@ Page({
                 icon: "loading",
                 duration: 9999999
               });
-              that.getVideo(id, skey, function() {
+              that.isPurchased(id, skey, function() {
                 that.btnEnable();
                 wx.hideToast();
                 wx.navigateBack({
@@ -143,20 +143,20 @@ Page({
     });
   },
 
-  getVideo: function(id, skey, call) {
+  isPurchased: function(id, skey, call) {
     let that = this;
     wx.request({
-      url: app.globalData.subDomain + 'video/getVideo',
+      url: app.globalData.subDomain + 'video/isPurchased',
       data: {
         id: id,
         skey: skey
       },
       success: function (res) {
-        if (res.data.isPurchased) {
+        if (res.data) {
           call.call();
         } else {
             setTimeout(function() {
-              that.getVideo(id, skey, call);
+              that.isPurchased(id, skey, call);
             }, 2000);
         }
       }

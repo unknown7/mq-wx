@@ -25,6 +25,7 @@ Page({
     shareCard: "",
     shareButtonDisabled: false,
     purchaseButtonDisabled: false,
+    played: false
   },
 
   /**
@@ -373,6 +374,25 @@ Page({
       videoContext.stop();
       videoContext.exitFullScreen();
       that.showPurchaseModal();
+    } else {
+      if (!that.data.played) {
+        let id = that.data.video.id;
+        let skey = wx.getStorageSync("skey");
+        wx.request({
+          url: app.globalData.subDomain + 'video/watchVideoStatistics',
+          data: {
+            id: id,
+            skey: skey
+          },
+          success: function (res) {
+            if (res.data.success) {
+              that.setData({
+                played: true
+              });
+            }
+          }
+        });
+      }
     }
   },
 

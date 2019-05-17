@@ -1,5 +1,5 @@
 <!--pages/wxml/index.wxml-->
-<!-- <button bindtap='clearCache'>clear cache</button> -->
+<button bindtap='clearCache'>clear cache</button>
 <van-notify id="van-notify" />
 <van-toast id="van-toast" />
 
@@ -8,7 +8,7 @@
   <view class="swiper-container">
     <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current='swiperCurrent' bindchange="swiperChange">
       <swiper-item class='swiper_item' wx:for="{{banners}}" wx:key="id">
-        <image bindtap="tapBanner" data-id="{{item.id}}" src="{{imagePath + item.imageRealName}}" class="slide-image" style="-webkit-transform: scale({{ swiperCurrent == index ? 0.9 : 0.65 }}) translate({{ (swiperCurrent == index - 1 || swiperCurrent == index + 1) ? (swiperCurrent - index) * 30 : 0 }}%, 0); -webkit-transition: 0.6s;"
+        <image bindtap="tapBanner" data-id="{{item.id}}" data-video-id="{{item.jumpTo}}" src="{{imagePath + item.imageRealName}}" class="slide-image" style="-webkit-transform: scale({{ swiperCurrent == index ? 0.9 : 0.65 }}) translate({{ (swiperCurrent == index - 1 || swiperCurrent == index + 1) ? (swiperCurrent - index) * 30 : 0 }}%, 0); -webkit-transition: 0.6s;"
           mode="aspectFill" />
       </swiper-item>
     </swiper>
