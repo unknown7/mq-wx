@@ -58,7 +58,8 @@
   </view>
 
   <van-goods-action>
-    <van-goods-action-button text="我的邀请卡" type="warning" bind:click="{{auth ? 'onShare' : ''}}" custom-class="share-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="shareGetUserInfo" disabled="{{shareButtonDisabled}}" />
+    <van-goods-action-button text="我的邀请卡" type="warning" bind:click="{{auth ? 'onShare' : ''}}" custom-class="share-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="shareGetUserInfo" disabled="{{shareButtonDisabled || video.isWhiteUser}}" />
+
     <van-goods-action-button wx:if="{{!video.isPurchased}}" text="立即购买" bind:click="{{auth ? 'onPurchase' : ''}}" custom-class="purchase-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="purchaseGetUserInfo" disabled="{{purchaseButtonDisabled}}" />
     <van-goods-action-button wx:if="{{video.isPurchased}}" text="已购买" custom-class="purchase-button" disabled="{{true}}" />
   </van-goods-action>

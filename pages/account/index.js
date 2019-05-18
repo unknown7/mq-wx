@@ -9,7 +9,7 @@ Page({
    */
   data: {
     imagePath: app.globalData.imagePath,
-    registered: false,
+    registered: wx.getStorageSync("userInfo") ? true : false,
     points: 0,
     videos: []
   },
