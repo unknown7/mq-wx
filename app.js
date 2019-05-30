@@ -95,9 +95,9 @@ App({
     /**
      * 开发服务器
      */
-    subDomain: "http://192.168.1.103:8080/mq/wx/",
-    imagePath: "http://192.168.1.103:8080/mq/images/",
-    videoPath: "http://192.168.1.103:8080/mq/videos/"
+    subDomain: "http://192.168.1.101:8080/mq/wx/",
+    imagePath: "http://192.168.1.101:8080/mq/images/",
+    videoPath: "http://192.168.1.101:8080/mq/videos/"
     /**
      * 测试服务器
      */

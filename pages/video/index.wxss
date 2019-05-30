@@ -1,6 +1,6 @@
 /* pages/detail/index.wxss */
 Page {
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   height: 100%;
 }
 
