@@ -24,10 +24,18 @@
 App({
   onLaunch: function (opt) {
     var that = this;
-    // const scene = decodeURIComponent(opt.scene);
-    const scene = "shareCardId=3";
+    const scene = decodeURIComponent(opt.scene);
     console.log(scene);
     // wx.setStorageSync("scene", scene);
+    wx.request({
+      url: that.globalData.subDomain + "index/scene",
+      data: {
+        scene: scene
+      },
+      success: function (res) {
+        console.log(res.data);
+      }
+    });
     that.checkLoginStatus();
   },
 

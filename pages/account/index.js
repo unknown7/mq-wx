@@ -18,30 +18,26 @@ Page({
     var that = this;
     let detail = e.detail;
     if (detail.userInfo) {
-      wx.login({
-        success: function(loginRes) {
-          wx.request({
-            url: app.globalData.subDomain + "saveUser",
-            data: {
-              code: loginRes.code, // 临时登录凭证
-              rawData: detail.rawData, // 用户非敏感信息
-              signature: detail.signature, // 签名
-              encryptedData: detail.encryptedData, // 用户敏感信息
-              iv: detail.iv // 解密算法的向量
-            },
-            success: function(res) {
-              if (res.data != null) {
-                console.log("register success..");
-                wx.setStorageSync("skey", res.data.skey);
-                wx.setStorageSync("userInfo", res.data.userVo);
-                that.setData({
-                  registered: true
-                });
-              } else {
-                Toast.fail('授权失败');
-              }
-            }
-          });
+      wx.request({
+        url: app.globalData.subDomain + "saveUser",
+        data: {
+          skey: wx.getStorageSync("skey"), // skey
+          rawData: detail.rawData, // 用户非敏感信息
+          signature: detail.signature, // 签名
+          encryptedData: detail.encryptedData, // 用户敏感信息
+          iv: detail.iv // 解密算法的向量
+        },
+        success: function(res) {
+          if (res.data != null) {
+            console.log("register success..");
+            wx.setStorageSync("skey", res.data.skey);
+            wx.setStorageSync("userInfo", res.data.userVo);
+            that.setData({
+              registered: true
+            });
+          } else {
+            Toast.fail('授权失败');
+          }
         }
       });
     }

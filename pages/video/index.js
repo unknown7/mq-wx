@@ -123,42 +123,38 @@ Page({
     let detail = e.detail;
     if (detail.userInfo) {
       that.btnDisabled();
-      wx.login({
-        success: function (loginRes) {
-          let data = {
-            code: loginRes.code, // 临时登录凭证
-            rawData: detail.rawData, // 用户非敏感信息
-            signature: detail.signature, // 签名
-            encryptedData: detail.encryptedData, // 用户敏感信息
-            iv: detail.iv // 解密算法的向量
-          };
-          let scene = wx.getStorageSync("scene");
-          if (scene) {
-            data.scene = scene;
-          };
-          wx.request({
-            url: app.globalData.subDomain + "saveUser",
-            data: data,
-            success: function (res) {
-              console.log(JSON.stringify(res));
-              if (res.data.success) {
-                console.log("register success..");
-                wx.setStorageSync("skey", res.data.skey);
-                wx.setStorageSync("userInfo", res.data.userVo);
-                that.setData({
-                  auth: true
-                });
-                call.call();
-              } else {
-                Toast.fail('授权失败');
-                that.btnEnable();
-              }
-            },
-            fail: function () {
-              Toast.fail('授权失败');
-              that.btnEnable();
-            }
-          });
+      let data = {
+        skey: wx.getStorageSync("skey"), // skey
+        rawData: detail.rawData, // 用户非敏感信息
+        signature: detail.signature, // 签名
+        encryptedData: detail.encryptedData, // 用户敏感信息
+        iv: detail.iv // 解密算法的向量
+      };
+      let scene = wx.getStorageSync("scene");
+      if (scene) {
+        data.scene = scene;
+      };
+      wx.request({
+        url: app.globalData.subDomain + "saveUser",
+        data: data,
+        success: function (res) {
+          console.log(JSON.stringify(res));
+          if (res.data.success) {
+            console.log("register success..");
+            wx.setStorageSync("skey", res.data.skey);
+            wx.setStorageSync("userInfo", res.data.userVo);
+            that.setData({
+              auth: true
+            });
+            call.call();
+          } else {
+            Toast.fail('授权失败');
+            that.btnEnable();
+          }
+        },
+        fail: function () {
+          Toast.fail('授权失败');
+          that.btnEnable();
         }
       });
     }
