@@ -41,9 +41,9 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "shareCardId=90",
-					"pathName": "pages/video/index",
-					"query": "scene=90",
+					"name": "shareCardId=117",
+					"pathName": "pages/index/index",
+					"query": "scene=117",
 					"scene": null
 				}
 			]

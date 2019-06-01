@@ -21,16 +21,41 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    that.getBanners();
-    that.getClassifications();
-    that.getVideos();
+    console.log(options);
+    let scene = options.scene;
+    if (scene) {
+      // decodeURIComponent
+      console.log("setShareCardId..");
+      wx.setStorageSync("shareCardId", scene);
+      let skey = wx.getStorageSync("skey");
+      wx.request({
+        url: app.globalData.subDomain + 'video/getVideoByShareCardId',
+        data: {
+          shareCardId: scene,
+          skey: skey
+        },
+        success: function (res) {
+          wx.navigateTo({
+            url: '/pages/video/index?id=' + res.data.id
+          });
+        }
+      });
+    } else {
+      that.getBanners();
+      that.getClassifications();
+      that.getVideos();
+    }
+    
   },
   
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this;
+    that.getBanners();
+    that.getClassifications();
+    that.getVideos();
   },
 
   /**

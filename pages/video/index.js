@@ -42,30 +42,16 @@ Page({
     purchaseModalSwitch = true;
     disabledWatch = false;
     played = false;
-    let url = '';
-    let data = {
-      skey: skey
-    };
-    console.log(options);
-    let scene = options.scene;
-    if (scene) {
-      // decodeURIComponent
-      console.log("setShareCardId..");
-      wx.setStorageSync("shareCardId", scene);
-      url = 'video/getVideoByShareCardId';
-      data.shareCardId = scene;
-    } else {
-      url = 'video/getVideo';
-      let id = options.id;
-      data.id = id;
-    }
-    
+    let id = options.id;
     /**
      * 获取视频信息
      */
     wx.request({
-      url: app.globalData.subDomain + url,
-      data: data,
+      url: app.globalData.subDomain + 'video/getVideo',
+      data: {
+        id: id,
+        skey: skey
+      },
       success: function(res) {
         that.setData({
           video: res.data,
@@ -147,9 +133,9 @@ Page({
         encryptedData: detail.encryptedData, // 用户敏感信息
         iv: detail.iv // 解密算法的向量
       };
-      let shareCardId = wx.getStorageSync("shareCardId");
-      if (shareCardId) {
-        data.shareCardId = shareCardId;
+      let scene = wx.getStorageSync("scene");
+      if (scene) {
+        data.scene = scene;
       };
       wx.request({
         url: app.globalData.subDomain + "saveUser",
