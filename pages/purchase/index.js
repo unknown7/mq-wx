@@ -24,7 +24,7 @@ Page({
     let usedPoints = that.data.points;
     let price = that.data.price;
     let originPrice = that.data.originPrice;
-    let scene = wx.getStorageSync("scene");
+    let shareCardId = wx.getStorageSync("shareCardId");
     let data = {
       skey: skey,
       videoId: id,
@@ -33,8 +33,8 @@ Page({
       price: price,
       originPrice: originPrice,
     };
-    if (scene) {
-      data.scene = scene;
+    if (shareCardId) {
+      data.shareCardId = shareCardId;
     }
     wx.request({
       url: app.globalData.subDomain + "payment/purchase",

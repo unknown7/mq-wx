@@ -3,7 +3,9 @@ import Share from '../../palette/share';
 import Notify from '../../dist/notify/notify';
 import Toast from '../../dist/toast/toast';
 var app = getApp();
-
+var purchaseModalSwitch = true;
+var played = false;
+var disabledWatch = false;
 Page({
 
   /**
@@ -16,7 +18,6 @@ Page({
     video: {},
     videoContext: null,
     widthFix: "widthFix",
-    disabledWatch: false,
     auth: false,
     template: {},
     videoSwitch: false,
@@ -24,8 +25,7 @@ Page({
     isScroll: true,
     shareCard: "",
     shareButtonDisabled: false,
-    purchaseButtonDisabled: false,
-    played: false
+    purchaseButtonDisabled: false
   },
 
   /**
@@ -39,16 +39,33 @@ Page({
       videoContext: wx.createVideoContext("video"),
       auth: userInfo ? true : false
     });
-    let id = options.id;
+    purchaseModalSwitch = true;
+    disabledWatch = false;
+    played = false;
+    let url = '';
+    let data = {
+      skey: skey
+    };
+    console.log(options);
+    let scene = options.scene;
+    if (scene) {
+      // decodeURIComponent
+      console.log("setShareCardId..");
+      wx.setStorageSync("shareCardId", scene);
+      url = 'video/getVideoByShareCardId';
+      data.shareCardId = scene;
+    } else {
+      url = 'video/getVideo';
+      let id = options.id;
+      data.id = id;
+    }
+    
     /**
      * 获取视频信息
      */
     wx.request({
-      url: app.globalData.subDomain + 'video/getVideo',
-      data: {
-        id: id,
-        skey: skey
-      },
+      url: app.globalData.subDomain + url,
+      data: data,
       success: function(res) {
         that.setData({
           video: res.data,
@@ -130,9 +147,9 @@ Page({
         encryptedData: detail.encryptedData, // 用户敏感信息
         iv: detail.iv // 解密算法的向量
       };
-      let scene = wx.getStorageSync("scene");
-      if (scene) {
-        data.scene = scene;
+      let shareCardId = wx.getStorageSync("shareCardId");
+      if (shareCardId) {
+        data.shareCardId = shareCardId;
       };
       wx.request({
         url: app.globalData.subDomain + "saveUser",
@@ -350,28 +367,32 @@ Page({
 
   bindtimeupdate: function(e) {
     let that = this;
-    let video = that.data.video;
-    let videoContext = that.data.videoContext;
-    let disabledWatch = that.data.disabledWatch;
-    if (!video.isPurchased && e.detail.currentTime > video.freeWatchTime) {
-      videoContext.stop();
-      videoContext.exitFullScreen();
-      that.setData({
-        disabledWatch: true
-      });
-      that.showPurchaseModal();
+    if (purchaseModalSwitch) {
+      let video = that.data.video;
+      let videoContext = that.data.videoContext;
+      let isPurchased = video.isPurchased;
+      let currentTime = e.detail.currentTime;
+      let freeWatchTime = video.freeWatchTime;
+      if (!isPurchased && currentTime > freeWatchTime) {
+        disabledWatch = true;
+        purchaseModalSwitch = false;
+        videoContext.exitFullScreen();
+        videoContext.pause();
+        videoContext.stop();
+        that.showPurchaseModal();
+      }
     }
   },
 
   bindplay: function(e) {
     let that = this;
-    if (that.data.disabledWatch) {
+    if (disabledWatch) {
       let videoContext = that.data.videoContext;
-      videoContext.stop();
       videoContext.exitFullScreen();
+      videoContext.stop();
       that.showPurchaseModal();
     } else {
-      if (!that.data.played) {
+      if (!played) {
         let id = that.data.video.id;
         let skey = wx.getStorageSync("skey");
         wx.request({
@@ -382,9 +403,7 @@ Page({
           },
           success: function (res) {
             if (res.data.success) {
-              that.setData({
-                played: true
-              });
+              played = true;
             }
           }
         });

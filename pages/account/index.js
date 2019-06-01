@@ -18,15 +18,20 @@ Page({
     var that = this;
     let detail = e.detail;
     if (detail.userInfo) {
+      let data = {
+        skey: wx.getStorageSync("skey"), // skey
+        rawData: detail.rawData, // 用户非敏感信息
+        signature: detail.signature, // 签名
+        encryptedData: detail.encryptedData, // 用户敏感信息
+        iv: detail.iv // 解密算法的向量
+      };
+      let shareCardId = wx.getStorageSync("shareCardId");
+      if (shareCardId) {
+        data.shareCardId = shareCardId;
+      };
       wx.request({
         url: app.globalData.subDomain + "saveUser",
-        data: {
-          skey: wx.getStorageSync("skey"), // skey
-          rawData: detail.rawData, // 用户非敏感信息
-          signature: detail.signature, // 签名
-          encryptedData: detail.encryptedData, // 用户敏感信息
-          iv: detail.iv // 解密算法的向量
-        },
+        data: data,
         success: function(res) {
           if (res.data != null) {
             console.log("register success..");

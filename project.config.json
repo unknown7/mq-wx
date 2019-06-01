@@ -42,8 +42,8 @@
 				{
 					"id": 0,
 					"name": "shareCardId=90",
-					"pathName": "pages/index/index",
-					"query": "scene=90&bacd=123",
+					"pathName": "pages/video/index",
+					"query": "scene=90",
 					"scene": null
 				}
 			]
