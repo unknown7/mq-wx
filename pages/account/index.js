@@ -9,7 +9,7 @@ Page({
    */
   data: {
     imagePath: app.globalData.imagePath,
-    registered: wx.getStorageSync("userInfo") ? true : false,
+    registered: wx.getStorageSync("userInfo") != '' ? true : false,
     points: 0,
     videos: []
   },
@@ -113,7 +113,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    let that = this;
+    this.onLoad();
   },
 
   /**
