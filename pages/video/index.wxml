@@ -40,7 +40,7 @@
     <van-col offset="1" span="6">
       <text class="item-detail">{{video.accessed}}访问量</text>
     </van-col>
-    <van-col offset="6" span="4">
+    <van-col offset="6" span="4" wx:if="{{!verifySwitch}}">
       <text class="item-price">￥{{video.price}}</text>
     </van-col>
   </van-row>
@@ -57,7 +57,7 @@
     <image class="image" src="{{descriptionPath}}" mode="{{widthFix}}"></image>
   </view>
 
-  <van-goods-action>
+  <van-goods-action wx:if="{{!verifySwitch}}">
     <van-goods-action-button text="我的邀请卡" type="warning" bind:click="{{auth ? 'onShare' : ''}}" custom-class="share-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="shareGetUserInfo" disabled="{{shareButtonDisabled || video.isWhiteUser}}" />
 
     <van-goods-action-button wx:if="{{!video.isPurchased}}" text="立即购买" bind:click="{{auth ? 'onPurchase' : ''}}" custom-class="purchase-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="purchaseGetUserInfo" disabled="{{purchaseButtonDisabled}}" />

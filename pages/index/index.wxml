@@ -45,7 +45,7 @@
                 <van-col span="18">
                   <text class="text">已有{{video.watched}}次观看</text>
                 </van-col>
-                <van-col span="6">
+                <van-col span="6" wx:if="{{!verifySwitch}}">
                   <text class="text-price">￥{{video.price}}</text>
                 </van-col>
               </van-row>

@@ -11,7 +11,8 @@ Page({
     imagePath: app.globalData.imagePath,
     registered: wx.getStorageSync("userInfo") != '' ? true : false,
     points: 0,
-    videos: []
+    videos: [],
+    verifySwitch: wx.getStorageSync("verifySwitch")
   },
 
   bindGetUserInfo: function(e) {
@@ -120,6 +121,11 @@ Page({
   onShow: function() {
     let that = this;
     this.onLoad();
+    app.loadVerifySwitch(function () {
+      that.setData({
+        verifySwitch: this
+      });
+    });
   },
 
   /**
@@ -144,6 +150,11 @@ Page({
     // 显示顶部刷新图标
     wx.showNavigationBarLoading();
     that.loadData(function() {
+      app.loadVerifySwitch(function () {
+        that.setData({
+          verifySwitch: this
+        });
+      });
       // 隐藏导航栏加载框
       wx.hideNavigationBarLoading();
       // 停止下拉动作

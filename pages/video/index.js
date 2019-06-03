@@ -25,7 +25,8 @@ Page({
     isScroll: true,
     shareCard: "",
     shareButtonDisabled: false,
-    purchaseButtonDisabled: false
+    purchaseButtonDisabled: false,
+    verifySwitch: wx.getStorageSync("verifySwitch")
   },
 
   /**
@@ -353,21 +354,24 @@ Page({
 
   bindtimeupdate: function(e) {
     let that = this;
-    if (purchaseModalSwitch) {
-      let video = that.data.video;
-      let videoContext = that.data.videoContext;
-      let isPurchased = video.isPurchased;
-      let currentTime = e.detail.currentTime;
-      let freeWatchTime = video.freeWatchTime;
-      if (!isPurchased && currentTime > freeWatchTime) {
-        disabledWatch = true;
-        purchaseModalSwitch = false;
-        videoContext.exitFullScreen();
-        videoContext.pause();
-        videoContext.stop();
-        that.showPurchaseModal();
+    if (!that.data.verifySwitch) {
+      if (purchaseModalSwitch) {
+        let video = that.data.video;
+        let videoContext = that.data.videoContext;
+        let isPurchased = video.isPurchased;
+        let currentTime = e.detail.currentTime;
+        let freeWatchTime = video.freeWatchTime;
+        if (!isPurchased && currentTime > freeWatchTime) {
+          disabledWatch = true;
+          purchaseModalSwitch = false;
+          videoContext.exitFullScreen();
+          videoContext.pause();
+          videoContext.stop();
+          that.showPurchaseModal();
+        }
       }
     }
+    
   },
 
   bindplay: function(e) {
@@ -441,6 +445,11 @@ Page({
       };
       that.onLoad(options);
     }
+    app.loadVerifySwitch(function () {
+      that.setData({
+        verifySwitch: this
+      });
+    });
   },
 
   /**
@@ -470,6 +479,11 @@ Page({
     wx.showNavigationBarLoading();
     that.onLoad(options);
     setTimeout(function () {
+      app.loadVerifySwitch(function () {
+        that.setData({
+          verifySwitch: this
+        });
+      });
       // 隐藏导航栏加载框
       wx.hideNavigationBarLoading();
       // 停止下拉动作

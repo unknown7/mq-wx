@@ -14,7 +14,8 @@ Page({
     banners: [],
     swiperCurrent: 0,
     classifications: [],
-    videos: []
+    videos: [],
+    verifySwitch: wx.getStorageSync("verifySwitch")
   },
   /**
    * 生命周期函数--监听页面加载
@@ -52,17 +53,22 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    let that = this;
-    that.getBanners();
-    that.getClassifications();
-    that.getVideos();
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    let that = this;
+    that.getBanners();
+    that.getClassifications();
+    that.getVideos();
+    app.loadVerifySwitch(function() {
+      that.setData({
+        verifySwitch: this
+      });
+    });
   },
 
   /**
@@ -90,6 +96,11 @@ Page({
     that.getClassifications();
     that.getVideos();
     setTimeout(function () {
+      app.loadVerifySwitch(function () {
+        that.setData({
+          verifySwitch: this
+        });
+      });
       // 隐藏导航栏加载框
       wx.hideNavigationBarLoading();
       // 停止下拉动作
