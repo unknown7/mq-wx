@@ -106,9 +106,9 @@ App({
     /**
      * 开发服务器
      */
-    subDomain: "http://192.168.1.101:8080/mq/wx/",
-    imagePath: "http://192.168.1.101:8080/mq/images/",
-    videoPath: "http://192.168.1.101:8080/mq/videos/"
+    // subDomain: "http://192.168.1.101:8080/mq/wx/",
+    // imagePath: "http://192.168.1.101:8080/mq/images/",
+    // videoPath: "http://192.168.1.101:8080/mq/videos/"
     /**
      * 测试服务器
      */
@@ -118,8 +118,8 @@ App({
     /**
      * 生产服务器
      */
-    // subDomain: "https://www.mqyoga.cn/mq/wx/",
-    // imagePath: "https://www.mqyoga.cn/mq/images/",
-    // videoPath: "https://www.mqyoga.cn/mq/videos/"
+    subDomain: "https://www.mqyoga.cn/mq/wx/",
+    imagePath: "https://www.mqyoga.cn/mq/images/",
+    videoPath: "https://www.mqyoga.cn/mq/videos/"
   }
 })
