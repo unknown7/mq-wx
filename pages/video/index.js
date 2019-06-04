@@ -72,7 +72,6 @@ Page({
         wx.downloadFile({
           url: that.data.shareCard,
           success: function (res) {
-            console.log(res);
             wx.saveImageToPhotosAlbum({
               filePath: res.tempFilePath,
               success: function () {
@@ -142,7 +141,6 @@ Page({
         url: app.globalData.subDomain + "saveUser",
         data: data,
         success: function (res) {
-          console.log(JSON.stringify(res));
           if (res.data.success) {
             console.log("register success..");
             wx.setStorageSync("skey", res.data.skey);
@@ -413,15 +411,23 @@ Page({
     let video = that.data.video;
     let title = video.freeWatchTime > 0 ? "免费观看结束" : "提示";
     let content = "您还没有购买此视频哦\n点击购买，立刻享受极致视频体验";
-    wx.showModal({
-      title: title,
-      content: content,
-      showCancel: true,
-      confirmText: "购买",
-      success(res) {
+    let userInfo = wx.getStorageSync("userInfo");
+    let showCancel = userInfo ? true : false;
+    let confirmText = userInfo ? "购买" : "确定";
+    let call = function(res) {
+      if (userInfo) {
         if (res.confirm) {
           that.purchase();
         }
+      }
+    };
+    wx.showModal({
+      title: title,
+      content: content,
+      showCancel: showCancel,
+      confirmText: confirmText,
+      success(res) {
+        call(res);
       }
     });
   },
@@ -508,7 +514,6 @@ Page({
       path: "pages/detail/index?videoId=" + that.data.video.id,
       imageUrl: app.globalData.imagePath + that.data.video.coverRealName,
       success: function(e) {
-        console.log(e);
       }
     }
   }

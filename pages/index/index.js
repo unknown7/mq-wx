@@ -22,10 +22,8 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    console.log(options);
     let scene = options.scene;
     if (scene) {
-      // decodeURIComponent
       console.log("setShareCardId..");
       wx.setStorageSync("shareCardId", scene);
       let skey = wx.getStorageSync("skey");
@@ -46,7 +44,6 @@ Page({
       that.getClassifications();
       that.getVideos();
     }
-    
   },
   
   /**
