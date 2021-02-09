@@ -24,8 +24,6 @@ Page({
     var that = this;
     let scene = options.scene;
     if (scene) {
-      console.log("setShareCardId..");
-      wx.setStorageSync("shareCardId", scene);
       let skey = wx.getStorageSync("skey");
       wx.request({
         url: app.globalData.subDomain + 'video/getVideoByShareCardId',

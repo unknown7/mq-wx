@@ -1,15 +1,15 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/account/index",
     "pages/video/index",
     "pages/purchase/index"
   ],
-  "window":{
-    "backgroundTextStyle":"dark",
+  "window": {
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "木荃孕产瑜伽",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "usingComponents": {
     "van-button": "dist/button/index",
@@ -48,5 +48,6 @@
         "selectedIconPath": "images/account_selected.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

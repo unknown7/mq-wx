@@ -72,3 +72,8 @@ Page {
   height: 2rpx;
   background-color: transparent
 }
+
+.introduction {
+  color: #cc1414;
+  font-size: 10rpx;
+}

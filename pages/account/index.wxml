@@ -25,45 +25,61 @@
 
         <van-row custom-class="user-info-text" wx:if="{{!verifySwitch}}">
           <van-col>
-            <view>我的积分：{{points}}</view>
+            <view>
+              我的积分：{{points}}
+              <button wx:if="{{isEmployee}}" style="width: 20%; height: 10%; font-size: 20rpx">申请提现</button>
+            </view>
+            
           </van-col>
         </van-row>
       </van-col>
     </van-row>
 
     <van-row custom-class="purchased-video">
-      <van-col offset="2" span="6">
-        <text>我的视频</text>
-      </van-col>
+      <van-tabs swipeable animated>
+
+        <van-tab title="我的视频">
+          <block wx:for="{{videos}}" wx:key="id" wx:for-item="video" wx:for-index="index">
+            <van-row bindtap="videoClick" data-id="{{video.id}}" custom-class="row">
+              <van-col offset="2" span="6">
+                <image class="cover" src="{{imagePath + video.coverRealName}}"></image>
+              </van-col>
+              <van-col offset="2" span="12">
+                <van-row>
+                  <van-col span="24">
+                    <text class="text-title">{{video.title}}</text>
+                  </van-col>
+                </van-row>
+                <van-row>
+                  <van-col span="24">
+                    <view class="van-multi-ellipsis--l2">
+                      <text class="text">{{video.subtitle}}</text>
+                    </view>
+                  </van-col>
+                </van-row>
+                <van-row>
+                  <van-col span="18">
+                    <text class="text">您已观看{{video.watched}}次</text>
+                  </van-col>
+                </van-row>
+              </van-col>
+            </van-row>
+            <view class="line"></view>
+          </block>
+        </van-tab>
+
+        <van-tab title="关于我们">
+          <text style="font-size: 26rpx; padding-left: 10rpx">
+            木荃瑜伽是潍坊首家也是唯一一家取得美国瑜伽联盟认证产后恢复机构！专业系统学习孕产和产后恢复！女性在生产完毕之后，常常会因为身体过于虚弱而需要一定的恢复和保养，而这种恢复和保养被称之为产后恢复。产后恢复包含的主要方面有产后会阴部位的私处细胞活力恢复，对盆底肌的针对性锻炼以及产后的体形恢复、产后的子宫恢复和产后的心理恢复，女性在恢复期间一定要注意营养饮食的均衡。孕产和产后瑜伽与普通的瑜伽是完全不同的，所以必须非常专业以及针对性授课，尤其是剖宫产的女性更应该更多的咨询专业老师和医生！
+          </text>
+        </van-tab>
+
+        <van-tab title="我的邀请">
+
+        </van-tab>
+
+      </van-tabs>
     </van-row>
 
-    <view class="transparent-line"></view>
-    <block wx:for="{{videos}}" wx:key="id" wx:for-item="video" wx:for-index="index">
-      <van-row bindtap="videoClick" data-id="{{video.id}}" custom-class="row">
-        <van-col offset="2" span="6">
-          <image class="cover" src="{{imagePath + video.coverRealName}}"></image>
-        </van-col>
-        <van-col offset="2" span="12">
-          <van-row>
-            <van-col span="24">
-              <text class="text-title">{{video.title}}</text>
-            </van-col>
-          </van-row>
-          <van-row>
-            <van-col span="24">
-              <view class="van-multi-ellipsis--l2">
-                <text class="text">{{video.subtitle}}</text>
-              </view>
-            </van-col>
-          </van-row>
-          <van-row>
-            <van-col span="18">
-              <text class="text">您已观看{{video.watched}}次</text>
-            </van-col>
-          </van-row>
-        </van-col>
-      </van-row>
-      <view class="line"></view>
-    </block>
   </view>
 </scroll-view>

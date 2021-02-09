@@ -12,7 +12,8 @@ Page({
     registered: wx.getStorageSync("userInfo") != '' ? true : false,
     points: 0,
     videos: [],
-    verifySwitch: wx.getStorageSync("verifySwitch")
+    verifySwitch: wx.getStorageSync("verifySwitch"),
+    isEmployee: wx.getStorageSync("userInfo") != '' ? wx.getStorageSync("userInfo").isEmployee : false
   },
 
   bindGetUserInfo: function(e) {
@@ -26,10 +27,6 @@ Page({
         encryptedData: detail.encryptedData, // 用户敏感信息
         iv: detail.iv // 解密算法的向量
       };
-      let shareCardId = wx.getStorageSync("shareCardId");
-      if (shareCardId) {
-        data.shareCardId = shareCardId;
-      };
       wx.request({
         url: app.globalData.subDomain + "saveUser",
         data: data,
@@ -39,7 +36,8 @@ Page({
             wx.setStorageSync("skey", res.data.skey);
             wx.setStorageSync("userInfo", res.data.userVo);
             that.setData({
-              registered: true
+              registered: true,
+              isEmployee: res.data.userVo.isEmployee
             });
           } else {
             Toast.fail('授权失败');
@@ -80,6 +78,25 @@ Page({
         });
       }
     });
+    /**
+     * 获取雇员信息
+     */
+    let isEmployee = that.data.isEmployee;
+    if (!isEmployee) {
+      wx.request({
+        url: app.globalData.subDomain + 'getUser',
+        data: {
+          skey: skey
+        },
+        success: function (res) {
+          that.setData({
+            isEmployee: res.data.isEmployee
+          });
+          wx.setStorageSync("userInfo", res.data);
+        }
+      });
+    }
+    
     setTimeout(function() {
       call.call();
     }, 300);
