@@ -12,6 +12,7 @@ Page({
     registered: wx.getStorageSync("userInfo") != '' ? true : false,
     points: 0,
     videos: [],
+    invitations: [],
     verifySwitch: wx.getStorageSync("verifySwitch"),
     isEmployee: wx.getStorageSync("userInfo") != '' ? wx.getStorageSync("userInfo").isEmployee : false
   },
@@ -96,6 +97,21 @@ Page({
         }
       });
     }
+
+    /**
+     * 获取邀请信息
+     */
+    wx.request({
+      url: app.globalData.subDomain + 'invitation/findInvitations',
+      data: {
+        skey: skey
+      },
+      success: function (res) {
+        that.setData({
+          invitations: res.data
+        });
+      }
+    });
     
     setTimeout(function() {
       call.call();

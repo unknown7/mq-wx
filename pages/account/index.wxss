@@ -113,6 +113,20 @@
   margin-top: 40rpx;
 }
 
-.user-nick-name {
-  
+.about-us {
+  padding: 0px 6px 14px 14px!important;
+  font-size: 30rpx;
+  color: #111111;
+}
+
+.invitation-row-title {
+  padding: 10px 0px 0px 0px!important;
+  font-size: 24rpx;
+  color: #111111;
+}
+
+.invitation-row {
+  padding: 0px 0px 0px 0px!important;
+  font-size: 24rpx;
+  color: #a9a9a9;
 }
