@@ -106,9 +106,9 @@ App({
     /**
      * 开发服务器
      */
-    subDomain: "http://localhost:8080/mq/wx/",
-    imagePath: "http://localhost:8080/mq/images/",
-    videoPath: "http://localhost:8080/mq/videos/"
+    // subDomain: "http://localhost:8080/mq/wx/",
+    // imagePath: "http://localhost:8080/mq/images/",
+    // videoPath: "http://localhost:8080/mq/videos/"
     /**
      * 测试服务器
      */
@@ -118,8 +118,8 @@ App({
     /**
      * 生产服务器
      */
-    // subDomain: "https://82.156.28.199/mq/wx/",
-    // imagePath: "https://82.156.28.199/mq/images/",
-    // videoPath: "https://82.156.28.199/mq/videos/"
+    subDomain: "https://www.mqyoga.xyz/mq/wx/",
+    imagePath: "https://www.mqyoga.xyz/mq/images/",
+    videoPath: "https://www.mqyoga.xyz/mq/videos/"
   }
 })
