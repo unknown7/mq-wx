@@ -80,7 +80,7 @@
         </van-tab>
 
         <van-tab title="我的邀请">
-        <van-row custom-class="invitation-row-title">
+        <van-row wx:if="{{invitations.length > 0}}" custom-class="invitation-row-title">
           <van-col offset="2" span="6">
             商品名称
           </van-col>

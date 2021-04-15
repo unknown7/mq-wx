@@ -22,8 +22,10 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    let scene = options.scene;
+    let scene = wx.getStorageSync("scene");
+    console.log("scene:" + scene);
     if (scene) {
+      wx.removeStorageSync("scene");
       let skey = wx.getStorageSync("skey");
       wx.request({
         url: app.globalData.subDomain + 'video/getVideoByShareCardId',

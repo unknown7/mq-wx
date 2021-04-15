@@ -23,6 +23,13 @@
  */
 App({
   onLaunch: function (options) {
+    if (options.query.scene) {
+      let scene = options.query.scene;
+      wx.setStorage({
+        data: scene,
+        key: "scene",
+      });
+    }
     var that = this;
     that.loadVerifySwitch();
     that.checkLoginStatus();

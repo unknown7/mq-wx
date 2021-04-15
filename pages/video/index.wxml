@@ -4,8 +4,9 @@
 
 <scroll-view scroll-y="{{isScroll}}" style="{{isScroll ? '' : 'height: 100%;'}}">
   <view class='item'>
-    <video id='video' style='width: 100%;' src="{{videoPath}}" controls bindtimeupdate="bindtimeupdate" bindfullscreenchange="bindfullscreenchange" bindplay='bindplay' hidden="{{videoSwitch}}">
+    <video wx:if="{{!verifySwitch}}" id='video' style='width: 100%;' src="{{videoPath}}" controls bindtimeupdate="bindtimeupdate" bindfullscreenchange="bindfullscreenchange" bindplay='bindplay' hidden="{{videoSwitch}}">
     </video>
+    <image wx:if="{{verifySwitch}}" src="{{coverPath}}" style='width: 100%;'></image>
 
     <view class="share-card" hidden="{{shareCardSwitch}}">
       <painter wx:if="{{!shareCard}}" class="share-card" customStyle='margin-left: 106rpx; margin-top: 70rpx;' palette="{{template}}" bind:imgOK="onImgOK" bind:imgErr="onImgErr" bindlongpress="onShowActionSheet" data-src="{{shareCard}}" />

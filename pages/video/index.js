@@ -56,6 +56,7 @@ Page({
       success: function(res) {
         that.setData({
           video: res.data,
+          coverPath: app.globalData.imagePath + res.data.coverRealName,
           videoPath: app.globalData.videoPath + res.data.videoRealName,
           descriptionPath: app.globalData.imagePath + res.data.descriptionRealName,
           shareCard: res.data.shareCard ? app.globalData.imagePath + res.data.shareCard : ""
