@@ -15,7 +15,7 @@ Page({
     swiperCurrent: 0,
     classifications: [],
     videos: [],
-    verifySwitch: wx.getStorageSync("verifySwitch")
+    button: wx.getStorageSync("button")
   },
   /**
    * 生命周期函数--监听页面加载
@@ -61,9 +61,9 @@ Page({
     that.getBanners();
     that.getClassifications();
     that.getVideos();
-    app.loadVerifySwitch(function() {
+    app.loadButton(function() {
       that.setData({
-        verifySwitch: this
+        button: this
       });
     });
   },
@@ -93,9 +93,9 @@ Page({
     that.getClassifications();
     that.getVideos();
     setTimeout(function () {
-      app.loadVerifySwitch(function () {
+      app.loadButton(function () {
         that.setData({
-          verifySwitch: this
+          button: this
         });
       });
       // 隐藏导航栏加载框

@@ -24,14 +24,14 @@
 App({
   onLaunch: function (options) {
     if (options.query.scene) {
-      let scene = options.query.scene;
+      let scene = decodeURIComponent(options.query.scene);
       wx.setStorage({
         data: scene,
         key: "scene",
       });
     }
     var that = this;
-    that.loadVerifySwitch();
+    that.loadButton();
     that.checkLoginStatus();
   },
 
@@ -39,12 +39,12 @@ App({
     let that = this;
   },
 
-  loadVerifySwitch: function(call) {
+  loadButton: function(call) {
     let that = this;
     wx.request({
-      url: that.globalData.subDomain + "getVerifySwitch",
+      url: that.globalData.subDomain + "getButton",
       success: function (res) {
-        wx.setStorageSync("verifySwitch", res.data);
+        wx.setStorageSync("button", res.data);
         if (call) {
           call.call(res.data);
         }

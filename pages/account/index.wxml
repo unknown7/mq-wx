@@ -23,7 +23,7 @@
           </van-col>
         </van-row>
 
-        <van-row custom-class="user-info-text" wx:if="{{!verifySwitch}}">
+        <van-row custom-class="user-info-text" wx:if="{{!button}}">
           <van-col>
             <view>
               我的积分：{{points}}

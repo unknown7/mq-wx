@@ -29,7 +29,8 @@
     "van-action-sheet": "dist/action-sheet/index",
     "van-cell": "dist/cell/index",
     "van-cell-group": "dist/cell-group/index",
-    "painter": "dist/painter/painter"
+    "painter": "dist/painter/painter",
+    "txv-video": "plugin://tencentvideo/video"
   },
   "tabBar": {
     "color": "#000",
@@ -49,5 +50,11 @@
       }
     ]
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "plugins": {
+    "tencentvideo": {
+      "version": "1.3.3",
+      "provider": "wxa75efa648b60994b"
+    }
+  }
 }

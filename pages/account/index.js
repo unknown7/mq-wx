@@ -13,7 +13,7 @@ Page({
     points: 0,
     videos: [],
     invitations: [],
-    verifySwitch: wx.getStorageSync("verifySwitch"),
+    button: wx.getStorageSync("button"),
     isEmployee: wx.getStorageSync("userInfo") != '' ? wx.getStorageSync("userInfo").isEmployee : false
   },
 
@@ -154,9 +154,9 @@ Page({
   onShow: function() {
     let that = this;
     this.onLoad();
-    app.loadVerifySwitch(function () {
+    app.loadButton(function () {
       that.setData({
-        verifySwitch: this
+        button: this
       });
     });
   },
@@ -183,9 +183,9 @@ Page({
     // 显示顶部刷新图标
     wx.showNavigationBarLoading();
     that.loadData(function() {
-      app.loadVerifySwitch(function () {
+      app.loadButton(function () {
         that.setData({
-          verifySwitch: this
+          button: this
         });
       });
       // 隐藏导航栏加载框

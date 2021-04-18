@@ -4,9 +4,9 @@
 
 <scroll-view scroll-y="{{isScroll}}" style="{{isScroll ? '' : 'height: 100%;'}}">
   <view class='item'>
-    <video wx:if="{{!verifySwitch}}" id='video' style='width: 100%;' src="{{videoPath}}" controls bindtimeupdate="bindtimeupdate" bindfullscreenchange="bindfullscreenchange" bindplay='bindplay' hidden="{{videoSwitch}}">
+    <video wx:if="{{!button}}" id='video' style='width: 100%;' src="{{videoPath}}" controls bindtimeupdate="bindtimeupdate" bindfullscreenchange="bindfullscreenchange" bindplay='bindplay' hidden="{{videoSwitch}}">
     </video>
-    <image wx:if="{{verifySwitch}}" src="{{coverPath}}" style='width: 100%;'></image>
+    <txv-video wx:if="{{button}}" vid="u3240s4txnw" playerid="txv1"></txv-video>
 
     <view class="share-card" hidden="{{shareCardSwitch}}">
       <painter wx:if="{{!shareCard}}" class="share-card" customStyle='margin-left: 106rpx; margin-top: 70rpx;' palette="{{template}}" bind:imgOK="onImgOK" bind:imgErr="onImgErr" bindlongpress="onShowActionSheet" data-src="{{shareCard}}" />
@@ -41,7 +41,7 @@
     <van-col offset="1" span="6">
       <text class="item-detail">{{video.accessed}}访问量</text>
     </van-col>
-    <van-col offset="6" span="4" wx:if="{{!verifySwitch}}">
+    <van-col offset="6" span="4" wx:if="{{!button}}">
       <text class="item-price">￥{{video.price}}</text>
     </van-col>
   </van-row>
@@ -58,7 +58,7 @@
     <image class="image" src="{{descriptionPath}}" mode="{{widthFix}}"></image>
   </view>
 
-  <van-goods-action wx:if="{{!verifySwitch}}">
+  <van-goods-action wx:if="{{!button}}">
     <van-goods-action-button text="我的邀请卡" type="warning" bind:click="{{auth ? 'onShare' : ''}}" custom-class="share-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="shareGetUserInfo" disabled="{{shareButtonDisabled || video.isWhiteUser}}" />
 
     <van-goods-action-button wx:if="{{!video.isPurchased}}" text="立即购买" bind:click="{{auth ? 'onPurchase' : ''}}" custom-class="purchase-button" open-type="{{!auth ? 'getUserInfo' : ''}}" bindgetuserinfo="purchaseGetUserInfo" disabled="{{purchaseButtonDisabled}}" />

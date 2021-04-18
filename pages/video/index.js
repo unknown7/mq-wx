@@ -26,7 +26,7 @@ Page({
     shareCard: "",
     shareButtonDisabled: false,
     purchaseButtonDisabled: false,
-    verifySwitch: wx.getStorageSync("verifySwitch")
+    button: wx.getStorageSync("button")
   },
 
   /**
@@ -353,7 +353,7 @@ Page({
 
   bindtimeupdate: function(e) {
     let that = this;
-    if (!that.data.verifySwitch) {
+    if (!that.data.button) {
       if (purchaseModalSwitch) {
         let video = that.data.video;
         let videoContext = that.data.videoContext;
@@ -452,9 +452,9 @@ Page({
       };
       that.onLoad(options);
     }
-    app.loadVerifySwitch(function () {
+    app.loadButton(function () {
       that.setData({
-        verifySwitch: this
+        button: this
       });
     });
   },
@@ -486,9 +486,9 @@ Page({
     wx.showNavigationBarLoading();
     that.onLoad(options);
     setTimeout(function () {
-      app.loadVerifySwitch(function () {
+      app.loadButton(function () {
         that.setData({
-          verifySwitch: this
+          button: this
         });
       });
       // 隐藏导航栏加载框
